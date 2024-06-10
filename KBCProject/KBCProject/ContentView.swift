@@ -16,7 +16,7 @@ struct ContentView: View {
                 .font(.system(size: 30))
                 .bold()
                 .foregroundStyle(Color.white)
-                .frame(width: 1000,height: 60)
+                .frame(width: 1000,height: 50)
         })
         .background(Color(red: 0.057, green: 0.139, blue: 0.328))
         
