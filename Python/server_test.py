@@ -10,6 +10,7 @@ from flask import Flask, jsonify, request
 import json
 import pymysql
 import pandas as pd
+import time
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False # utf8
@@ -21,9 +22,7 @@ def teamRanking() :
     select_year = request.args.get('year')
     select_month = request.args.get('month')
     team_name = request.args.get('team')
-
-    print(int(select_month))
-
+    
     # ------
 
     # 서버에서 불러와 원하는 값 추출
@@ -55,6 +54,74 @@ def teamRanking() :
 
     # return
     return json.dumps(response, ensure_ascii=False).encode('utf-8')
+
+@app.route('/dayRank')
+def dayRanking() :
+    # 크롤링
+    # crawling_kbo_dayRanking()
+
+    year = time.localtime().tm_year
+    month = time.localtime().tm_mon
+    day = time.localtime().tm_mday
+    current_date = f'{year}.{str(month).zfill(2)}.{str(day).zfill(2)}'
+
+    df = pd.read_csv('./Python/Data/rank/day_rank.csv')
+    df.columns = ['rank', 'team', 'totalgames', 'win', 'loss', 'draw', 'winningrate', 'gamesbehind', 'tengamesrecord', 'streak', 'home', 'away']
+    df['date'] = current_date
+
+    result = []
+
+    # result = {}
+    # result[current_date] = []
+
+    for index in range(len(df)) :
+        # result[current_date].append(df.loc[index, :].to_dict())
+        result.append(df.loc[index, :].to_dict())
+
+    # return
+    return json.dumps(result, ensure_ascii=False).encode('utf-8')
+
+def crawling_kbo_dayRanking() :
+    from bs4 import BeautifulSoup
+    import urllib.request as req
+    import pandas as pd
+
+    url = 'https://www.koreabaseball.com/Record/TeamRank/TeamRankDaily.aspx'
+    res = req.urlopen(url)
+    soup = BeautifulSoup(res, 'html.parser')
+    date = soup.find_all('span', attrs='date')[0].text
+
+    # print('현재 날짜 : ', current_date)
+    # print('KBO 날짜 : ', date)
+
+    # if current_date == date :
+    #     return
+
+    result = []
+    
+    for index in range(10) :
+        team_info = soup.select('table > tbody tr')[index]
+        datas = team_info.select('td')
+
+        result_dict = {
+            '순위' : datas[0].text,
+            '팀명' : datas[1].text,
+            '경기 수' : datas[2].text,
+            '승리 수' : datas[3].text,
+            '패배 수' : datas[4].text,
+            '무승부 수' : datas[5].text,
+            '승률' : datas[6].text,
+            '게임차' : datas[7].text,
+            '최근 10경기 전적' : datas[8].text,
+            '연속 현황' : datas[9].text,
+            '홈 경기 전적' : datas[10].text,
+            '원정 경기 전적' : datas[11].text
+        }
+
+        result.append(result_dict)
+    
+    pd.DataFrame(result).to_csv('./Python/Data/rank/day_rank.csv', index=None)
+
 
 # @app.route('/update')
 # def updateMySQL() :

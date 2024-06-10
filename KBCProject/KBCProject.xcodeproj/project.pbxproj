@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B07B5FB2C16A4C100D61457 /* RankModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B5FA2C16A4C100D61457 /* RankModel.swift */; };
+		2B07B5FD2C16A4EA00D61457 /* RankVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B5FC2C16A4EA00D61457 /* RankVM.swift */; };
+		2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B5FE2C16A74A00D61457 /* RankPage.swift */; };
+		2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B6002C16C24000D61457 /* DayRankDetail.swift */; };
+		2B07B6032C16CEB700D61457 /* ScoreNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B6022C16CEB700D61457 /* ScoreNavigation.swift */; };
 		933B87762C1056D000AAC60D /* KBCProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87752C1056D000AAC60D /* KBCProjectApp.swift */; };
 		933B87782C1056D000AAC60D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87772C1056D000AAC60D /* ContentView.swift */; };
 		933B877A2C1056D200AAC60D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933B87792C1056D200AAC60D /* Assets.xcassets */; };
@@ -29,6 +34,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B07B5FA2C16A4C100D61457 /* RankModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankModel.swift; sourceTree = "<group>"; };
+		2B07B5FC2C16A4EA00D61457 /* RankVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankVM.swift; sourceTree = "<group>"; };
+		2B07B5FE2C16A74A00D61457 /* RankPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankPage.swift; sourceTree = "<group>"; };
+		2B07B6002C16C24000D61457 /* DayRankDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRankDetail.swift; sourceTree = "<group>"; };
+		2B07B6022C16CEB700D61457 /* ScoreNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreNavigation.swift; sourceTree = "<group>"; };
 		933B87722C1056D000AAC60D /* KBCProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KBCProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		933B87752C1056D000AAC60D /* KBCProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBCProjectApp.swift; sourceTree = "<group>"; };
 		933B87772C1056D000AAC60D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -150,6 +160,9 @@
 			isa = PBXGroup;
 			children = (
 				933B87902C12957900AAC60D /* ScorePage.swift */,
+				2B07B5FE2C16A74A00D61457 /* RankPage.swift */,
+				2B07B6002C16C24000D61457 /* DayRankDetail.swift */,
+				2B07B6022C16CEB700D61457 /* ScoreNavigation.swift */,
 			);
 			path = ScoreView;
 			sourceTree = "<group>";
@@ -182,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				933B87AD2C12964D00AAC60D /* ModelTest.swift */,
+				2B07B5FA2C16A4C100D61457 /* RankModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -190,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				933B87AB2C12964600AAC60D /* VMTest.swift */,
+				2B07B5FC2C16A4EA00D61457 /* RankVM.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -270,12 +285,17 @@
 				933B87A32C1295E500AAC60D /* JoinPage.swift in Sources */,
 				933B87AC2C12964600AAC60D /* VMTest.swift in Sources */,
 				933B87782C1056D000AAC60D /* ContentView.swift in Sources */,
+				2B07B6032C16CEB700D61457 /* ScoreNavigation.swift in Sources */,
+				2B07B5FB2C16A4C100D61457 /* RankModel.swift in Sources */,
 				933B87AE2C12964D00AAC60D /* ModelTest.swift in Sources */,
 				933B87912C12957900AAC60D /* ScorePage.swift in Sources */,
+				2B07B5FD2C16A4EA00D61457 /* RankVM.swift in Sources */,
 				933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */,
 				933B87932C12958300AAC60D /* MyPage.swift in Sources */,
 				933B87962C12959400AAC60D /* MapPage.swift in Sources */,
 				933B879D2C1295B900AAC60D /* LoginPage.swift in Sources */,
+				2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */,
+				2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */,
 				933B879F2C1295C300AAC60D /* SearchIdPage.swift in Sources */,
 				933B87762C1056D000AAC60D /* KBCProjectApp.swift in Sources */,
 				933B87982C12959D00AAC60D /* SchedulePage.swift in Sources */,

@@ -13,6 +13,7 @@ struct SchedulePage: View {
     }
 }
 
+
 #Preview {
     SchedulePage()
 }
