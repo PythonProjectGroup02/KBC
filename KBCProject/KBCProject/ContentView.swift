@@ -33,7 +33,7 @@ struct ContentView: View {
                 .tag(1)
             SchedulePage()
                 .tabItem {
-                    Image(systemName: "calendar")
+                    Image(systemName: "baseball.fill")
                 }
                 .tag(2)
             MapPage()
@@ -41,11 +41,6 @@ struct ContentView: View {
                     Image(systemName: "map.fill")
                 }
                 .tag(3)
-            MyPage()
-                .tabItem {
-                    Image(systemName: "person.fill")
-                }
-                .tag(4)
         })
     }
 }

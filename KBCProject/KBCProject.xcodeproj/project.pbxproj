@@ -23,17 +23,15 @@
 		933B87892C1058BE00AAC60D /* KBO_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 933B87862C1058BE00AAC60D /* KBO_bold.otf */; };
 		933B878A2C1058BE00AAC60D /* KBO Dia Gothic_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 933B87872C1058BE00AAC60D /* KBO Dia Gothic_light.otf */; };
 		933B87912C12957900AAC60D /* ScorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87902C12957900AAC60D /* ScorePage.swift */; };
-		933B87932C12958300AAC60D /* MyPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87922C12958300AAC60D /* MyPage.swift */; };
 		933B87962C12959400AAC60D /* MapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87952C12959400AAC60D /* MapPage.swift */; };
-		933B87982C12959D00AAC60D /* SchedulePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87972C12959D00AAC60D /* SchedulePage.swift */; };
+		933B87982C12959D00AAC60D /* MyTeamPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87972C12959D00AAC60D /* MyTeamPage.swift */; };
 		933B879D2C1295B900AAC60D /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B879C2C1295B900AAC60D /* LoginPage.swift */; };
 		933B879F2C1295C300AAC60D /* SearchIdPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B879E2C1295C300AAC60D /* SearchIdPage.swift */; };
 		933B87A12C1295CF00AAC60D /* SearchPwPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87A02C1295CF00AAC60D /* SearchPwPage.swift */; };
 		933B87A32C1295E500AAC60D /* JoinPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87A22C1295E500AAC60D /* JoinPage.swift */; };
 		933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87A42C1295FC00AAC60D /* MainPage.swift */; };
-		933B87AC2C12964600AAC60D /* VMTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87AB2C12964600AAC60D /* VMTest.swift */; };
-		933B87AE2C12964D00AAC60D /* ModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87AD2C12964D00AAC60D /* ModelTest.swift */; };
-		933B87B42C169FD300AAC60D /* MapDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87B32C169FD300AAC60D /* MapDetailView.swift */; };
+		933B87B62C18078600AAC60D /* SchesduleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87B52C18078600AAC60D /* SchesduleVM.swift */; };
+		933B87B82C1807B300AAC60D /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87B72C1807B300AAC60D /* ScheduleModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,17 +53,15 @@
 		933B87862C1058BE00AAC60D /* KBO_bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = KBO_bold.otf; sourceTree = "<group>"; };
 		933B87872C1058BE00AAC60D /* KBO Dia Gothic_light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KBO Dia Gothic_light.otf"; sourceTree = "<group>"; };
 		933B87902C12957900AAC60D /* ScorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePage.swift; sourceTree = "<group>"; };
-		933B87922C12958300AAC60D /* MyPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPage.swift; sourceTree = "<group>"; };
 		933B87952C12959400AAC60D /* MapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPage.swift; sourceTree = "<group>"; };
-		933B87972C12959D00AAC60D /* SchedulePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulePage.swift; sourceTree = "<group>"; };
+		933B87972C12959D00AAC60D /* MyTeamPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamPage.swift; sourceTree = "<group>"; };
 		933B879C2C1295B900AAC60D /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
 		933B879E2C1295C300AAC60D /* SearchIdPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIdPage.swift; sourceTree = "<group>"; };
 		933B87A02C1295CF00AAC60D /* SearchPwPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPwPage.swift; sourceTree = "<group>"; };
 		933B87A22C1295E500AAC60D /* JoinPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPage.swift; sourceTree = "<group>"; };
 		933B87A42C1295FC00AAC60D /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
-		933B87AB2C12964600AAC60D /* VMTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VMTest.swift; sourceTree = "<group>"; };
-		933B87AD2C12964D00AAC60D /* ModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTest.swift; sourceTree = "<group>"; };
-		933B87B32C169FD300AAC60D /* MapDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapDetailView.swift; sourceTree = "<group>"; };
+		933B87B52C18078600AAC60D /* SchesduleVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchesduleVM.swift; sourceTree = "<group>"; };
+		933B87B72C1807B300AAC60D /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,29 +135,20 @@
 			path = MainView;
 			sourceTree = "<group>";
 		};
-		933B878C2C12946B00AAC60D /* ScheduleView */ = {
+		933B878C2C12946B00AAC60D /* MyTeamView */ = {
 			isa = PBXGroup;
 			children = (
-				933B87972C12959D00AAC60D /* SchedulePage.swift */,
+				933B87972C12959D00AAC60D /* MyTeamPage.swift */,
 			);
-			path = ScheduleView;
+			path = MyTeamView;
 			sourceTree = "<group>";
 		};
 		933B878D2C12947500AAC60D /* MapView */ = {
 			isa = PBXGroup;
 			children = (
 				933B87952C12959400AAC60D /* MapPage.swift */,
-				933B87B32C169FD300AAC60D /* MapDetailView.swift */,
 			);
 			path = MapView;
-			sourceTree = "<group>";
-		};
-		933B878E2C12947B00AAC60D /* MyPageView */ = {
-			isa = PBXGroup;
-			children = (
-				933B87922C12958300AAC60D /* MyPage.swift */,
-			);
-			path = MyPageView;
 			sourceTree = "<group>";
 		};
 		933B878F2C12955400AAC60D /* ScoreView */ = {
@@ -191,9 +178,8 @@
 			children = (
 				933B879A2C1295A700AAC60D /* LoginView */,
 				933B878F2C12955400AAC60D /* ScoreView */,
-				933B878E2C12947B00AAC60D /* MyPageView */,
 				933B878D2C12947500AAC60D /* MapView */,
-				933B878C2C12946B00AAC60D /* ScheduleView */,
+				933B878C2C12946B00AAC60D /* MyTeamView */,
 				933B878B2C12946100AAC60D /* MainView */,
 				2B8F8DBF2C17EA7200D1AA27 /* SplashView.swift */,
 			);
@@ -203,8 +189,8 @@
 		933B87A72C12962A00AAC60D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				933B87AD2C12964D00AAC60D /* ModelTest.swift */,
 				2B07B5FA2C16A4C100D61457 /* RankModel.swift */,
+				933B87B72C1807B300AAC60D /* ScheduleModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -212,8 +198,8 @@
 		933B87A82C12963100AAC60D /* VM */ = {
 			isa = PBXGroup;
 			children = (
-				933B87AB2C12964600AAC60D /* VMTest.swift */,
 				2B07B5FC2C16A4EA00D61457 /* RankVM.swift */,
+				933B87B52C18078600AAC60D /* SchesduleVM.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -291,28 +277,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				933B87B62C18078600AAC60D /* SchesduleVM.swift in Sources */,
 				933B87A32C1295E500AAC60D /* JoinPage.swift in Sources */,
-				933B87AC2C12964600AAC60D /* VMTest.swift in Sources */,
 				933B87782C1056D000AAC60D /* ContentView.swift in Sources */,
 				2B07B6032C16CEB700D61457 /* ScoreNavigation.swift in Sources */,
 				2B07B5FB2C16A4C100D61457 /* RankModel.swift in Sources */,
-				2B8F8DC02C17EA7200D1AA27 /* SplashView.swift in Sources */,
-				2B8F8DC22C181DF400D1AA27 /* SplashTest.swift in Sources */,
-				933B87AE2C12964D00AAC60D /* ModelTest.swift in Sources */,
-				933B87912C12957900AAC60D /* ScorePage.swift in Sources */,
-				2B07B5FD2C16A4EA00D61457 /* RankVM.swift in Sources */,
-				933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */,
-				933B87932C12958300AAC60D /* MyPage.swift in Sources */,
-				933B87962C12959400AAC60D /* MapPage.swift in Sources */,
-				933B879D2C1295B900AAC60D /* LoginPage.swift in Sources */,
-				2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */,
-				2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */,
-				933B879F2C1295C300AAC60D /* SearchIdPage.swift in Sources */,
-				933B87762C1056D000AAC60D /* KBCProjectApp.swift in Sources */,
-				2B8F8DC42C182A2800D1AA27 /* OtherSplashView.swift in Sources */,
-				933B87982C12959D00AAC60D /* SchedulePage.swift in Sources */,
-				933B87B42C169FD300AAC60D /* MapDetailView.swift in Sources */,
-				933B87A12C1295CF00AAC60D /* SearchPwPage.swift in Sources */,
+                2B8F8DC02C17EA7200D1AA27 /* SplashView.swift in Sources */,
+                2B8F8DC22C181DF400D1AA27 /* SplashTest.swift in Sources */,
+                933B87AE2C12964D00AAC60D /* ModelTest.swift in Sources */,
+                933B87912C12957900AAC60D /* ScorePage.swift in Sources */,
+                2B07B5FD2C16A4EA00D61457 /* RankVM.swift in Sources */,
+                933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */,
+                933B87962C12959400AAC60D /* MapPage.swift in Sources */,
+                933B87B82C1807B300AAC60D /* ScheduleModel.swift in Sources */,
+                933B879D2C1295B900AAC60D /* LoginPage.swift in Sources */,
+                2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */,
+                2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */,
+                933B879F2C1295C300AAC60D /* SearchIdPage.swift in Sources */,
+                933B87762C1056D000AAC60D /* KBCProjectApp.swift in Sources */,
+                2B8F8DC42C182A2800D1AA27 /* OtherSplashView.swift in Sources */,
+                933B87982C12959D00AAC60D /* MyTeamPage.swift in Sources */,
+                933B87B42C169FD300AAC60D /* MapDetailView.swift in Sources */,
+                933B87A12C1295CF00AAC60D /* SearchPwPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
