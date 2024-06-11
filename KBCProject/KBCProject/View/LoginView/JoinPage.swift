@@ -8,8 +8,19 @@
 import SwiftUI
 
 struct JoinPage: View {
+    var teamname = ["구단을 선택해주세요","LG","두산","키움","SSG","삼성","한화","롯데","NC","기아","KT"]
+    @State var team = ""
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(content: {
+            Picker("구단을 선택해주세요", selection: $team){
+                ForEach(teamname, id: \.self) {
+                    Text($0)
+                }
+            }
+            .onChange(of: team, {
+               
+            })
+        })
     }
 }
 
