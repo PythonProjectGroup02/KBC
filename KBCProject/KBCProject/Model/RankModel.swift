@@ -9,27 +9,8 @@ import Foundation
 // 특정월의 순위
 struct MonthRank: Codable {
     let date: String
+    let team: String
     let rank: Int
-}
-
-// 특정월의 순위에 대한 정보
-struct Info: Codable {
-    let date: String
-    let totalgames: Int
-    let win: Int
-    let loss: Int
-    let draw: Int
-    let winningrate: Double
-    let gamesbehind: Double
-    let tengamesrecord: String
-    let streak: String
-    let home: String
-    let away: String
-}
-
-struct ResponseData: Codable {
-    let month_rank: [MonthRank]
-    let information: [Info]
 }
 
 // 오늘의 순위
@@ -49,6 +30,19 @@ struct DayRankModel: Codable {
     let date: String
 }
 
+struct ResponseData: Codable {
+    let 두산: [MonthRank]
+    let 롯데: [MonthRank]
+    let 삼성: [MonthRank]
+    let 키움: [MonthRank]
+    let 한화: [MonthRank]
+    let KIA: [MonthRank]
+    let KT: [MonthRank]
+    let LG: [MonthRank]
+    let NC: [MonthRank]
+    let SSG: [MonthRank]
+}
+
 // 승,무,패의 파이차트 모델
 struct PieModel {
     let name: String
@@ -62,11 +56,6 @@ extension PieModel: Hashable {
     }
 }
 extension MonthRank: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(date)
-    }
-}
-extension Info: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(date)
     }

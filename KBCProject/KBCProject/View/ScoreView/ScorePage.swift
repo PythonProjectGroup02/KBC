@@ -9,15 +9,11 @@ import Charts
 
 struct ScorePage: View {
     
-    @State var monthRank: [MonthRank] = []
-    @State var monthInfo: [Info] = []
-    
+    @State var isAnimation: Bool = false
+    @State var monthRank: ResponseData?
     @State var selectYear: Int = 2024
     @State var selectMonth: Int = 6
-    
-    @State var teamIndex: Int = 0
-    
-    let teamArr = ["두산", "롯데", "삼성", "키움", "한화", "KIA", "LG", "KT", "NC", "SSG"]
+//    @State var teamArr = []
     
     var body: some View {
         VStack {
@@ -47,35 +43,72 @@ struct ScorePage: View {
                 })
                 
                 Spacer()
-                
-                Picker("", selection: $teamIndex, content: {
-                    ForEach(0..<10, id: \.self, content: {
-                        index in
-                        Text("\(teamArr[index])")
-                            .foregroundStyle(Color.black)
-                    })
-                })
-                .labelsHidden()
-                
-                Spacer()
             })
             .frame(width: 360, height: 70)
             
             Button(action: {
-                requestRank(year: selectYear, month: selectMonth, name: teamArr[teamIndex])
+                requestRank(year: selectYear, month: selectMonth)
             }, label: {
                 Text("순위 보기")
             })
             .padding(.bottom)
             
             Spacer()
-            
-            if !monthRank.isEmpty {
+//            if false {
+//            if !monthRank.isEmpty {
+//            if !(monthRank?.KIA.isEmpty)! {
+            if let monthRank = monthRank {
                 Chart(content: {
-                    ForEach(monthRank, id: \.date) { month in
-                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank))
+                    ForEach(monthRank.KIA, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "KIA"))
+                            .foregroundStyle(Color.black)
+                    }
+                    ForEach(monthRank.KT, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "KT"))
+                            .foregroundStyle(Color.gray)
+                    }
+                    // 약간 빨간색
+                    ForEach(monthRank.LG, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "LG"))
+                            .foregroundStyle(Color.mint)
+                    }
+                    // 남색
+                    ForEach(monthRank.NC, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "NC"))
+                            .foregroundStyle(Color.purple)
+                    }
+                    // 초록색
+                    ForEach(monthRank.SSG, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "SSG"))
+                            .foregroundStyle(Color.brown)
+                    }
+                    // 어두운 남색
+                    ForEach(monthRank.두산, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "두산"))
+                            .foregroundStyle(Color.orange)
+                    }
+                    // 하늘색
+                    ForEach(monthRank.롯데, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "롯데"))
+                            .foregroundStyle(Color.green)
+                    }
+                    // 파란색
+                    ForEach(monthRank.삼성, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "삼성"))
+                            .foregroundStyle(Color.cyan)
+                    }
+                    // 버건디
+                    ForEach(monthRank.키움, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "키움"))
+                            .foregroundStyle(Color.red)
+                    }
+                    // 주황색
+                    ForEach(monthRank.한화, id: \.date) { month in
+                        LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank), series: .value("날짜", "한화"))
+                            .foregroundStyle(Color.yellow)
                     }
                 })
+                .animation(.easeIn, value: isAnimation)
                 // 차트의 Ylim, Y축 범위 조정
                 .chartYScale(domain: -10.0...(-1.0))
                 // 차트의 Y축 부분 라벨
@@ -117,21 +150,31 @@ struct ScorePage: View {
         }
         .onAppear(perform: {
             // 이 Page가 구성될때 기본값으로 2024년 6월의 순위를 불러온다.
-            requestRank(year: selectYear, month: selectMonth, name: teamArr[teamIndex])
+            requestRank(year: selectYear, month: selectMonth)
         })
     } // body
     
     // 월별 순위를 요청하는 func
-    func requestRank(year: Int, month: Int, name: String) {
+    func requestRank(year: Int, month: Int) {
         let query = RankAPI()
-        let url = "http://127.0.0.1:5000/monthRank?year=\(year)&month=\(String(format: "%02d", month))&team=\(name)"
+        let url = "http://127.0.0.1:5000/monthRank?year=\(year)&month=\(String(format: "%02d", month))"
         Task {
-            (monthRank, monthInfo) = try await query.loadJsonData(url: url)
+            monthRank = try await query.loadJsonData(url: url)
+//            let mirror = Mirror(reflecting: try await query.loadJsonData(url: url))
+//            
+//            teamArr = []
+//            for child in mirror.children {
+////                print(child.label!)
+//                teamArr.append(child.label!)
+//            }
+
         }
-    }
+    } // func
+    
     
 } // View
 
 #Preview {
     ContentView()
 }
+
