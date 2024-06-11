@@ -56,8 +56,7 @@ struct RankCell: View {
             
             Text("\(model.rank)위")
             Text("\(model.team)")
-            
-//            Text("\(model.winningrate)")
+
         })
     }
 }
