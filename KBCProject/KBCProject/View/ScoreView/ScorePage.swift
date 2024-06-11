@@ -76,19 +76,26 @@ struct ScorePage: View {
                         LineMark(x: .value("날짜", month.date), y: .value("등수", -month.rank))
                     }
                 })
+                // 차트의 Ylim, Y축 범위 조정
                 .chartYScale(domain: -10.0...(-1.0))
+                // 차트의 Y축 부분 라벨
                 .chartYAxis(content: {
                     AxisMarks(position: .leading, values: Array(stride(from: -10, to: 0, by: 1)), content: { value in
+                        // value : month.rank => 등수
                         AxisTick()
                         AxisGridLine()
                         AxisValueLabel {
+                            // 내림차순으로 변경하기 위해 음수를 곱함
                             Text("\(-value.as(Int.self)!)등")
                         }
                     })
                 })
+                // Chart의 X축 부분 라벨
                 .chartXAxis(content: {
                     AxisMarks(position: .automatic, content: { value in
                         AxisValueLabel {
+                            // value : month.date => 2024.06.01과 같은 날짜 데이터
+                            // 06.01과 같이 월,일만 추출
                             let label = value.as(String.self)!
                             let startWord = label.index(label.startIndex, offsetBy: 8)
                             let endWord = label.index(label.startIndex, offsetBy: 10)
@@ -109,10 +116,12 @@ struct ScorePage: View {
             Spacer()
         }
         .onAppear(perform: {
+            // 이 Page가 구성될때 기본값으로 2024년 6월의 순위를 불러온다.
             requestRank(year: selectYear, month: selectMonth, name: teamArr[teamIndex])
         })
     } // body
     
+    // 월별 순위를 요청하는 func
     func requestRank(year: Int, month: Int, name: String) {
         let query = RankAPI()
         let url = "http://127.0.0.1:5000/monthRank?year=\(year)&month=\(String(format: "%02d", month))&team=\(name)"
@@ -120,6 +129,7 @@ struct ScorePage: View {
             (monthRank, monthInfo) = try await query.loadJsonData(url: url)
         }
     }
+    
 } // View
 
 #Preview {

@@ -27,13 +27,9 @@ def teamRanking() :
 
     # 서버에서 불러와 원하는 값 추출
     team_df = pd.read_csv(f'./Python/Data/rank/{team_name}_rank.csv')
-    print("불러오기")
     team_df.columns = ['date', 'teamname', 'rank', 'totalgames', 'win', 'loss', 'draw', 'winningrate', 'gamesbehind', 'tengamesrecord', 'streak', 'home', 'away']
-    print("컬럼변경")
     team_df.date = pd.to_datetime(team_df.date)
-    print("날짜변경")
     result_df = team_df[(team_df.date.dt.year == int(select_year)) & (team_df.date.dt.month == int(select_month))]
-    print("날짜변경2")
     # result_df.loc[:, '날짜'] = result_df.날짜.astype(str)
     result_df.date = result_df.date.astype(str)
 
@@ -58,16 +54,16 @@ def teamRanking() :
 @app.route('/dayRank')
 def dayRanking() :
     # 크롤링
-    # crawling_kbo_dayRanking()
+    crawling_kbo_dayRanking()
 
-    year = time.localtime().tm_year
-    month = time.localtime().tm_mon
-    day = time.localtime().tm_mday
-    current_date = f'{year}.{str(month).zfill(2)}.{str(day).zfill(2)}'
+    # year = time.localtime().tm_year
+    # month = time.localtime().tm_mon
+    # day = time.localtime().tm_mday
+    # current_date = f'{year}.{str(month).zfill(2)}.{str(day).zfill(2)}'
 
     df = pd.read_csv('./Python/Data/rank/day_rank.csv')
-    df.columns = ['rank', 'team', 'totalgames', 'win', 'loss', 'draw', 'winningrate', 'gamesbehind', 'tengamesrecord', 'streak', 'home', 'away']
-    df['date'] = current_date
+    df.columns = ['rank', 'team', 'totalgames', 'win', 'loss', 'draw', 'winningrate', 'gamesbehind', 'tengamesrecord', 'streak', 'home', 'away', 'date']
+    # df['date'] = current_date
 
     result = []
 
@@ -115,7 +111,8 @@ def crawling_kbo_dayRanking() :
             '최근 10경기 전적' : datas[8].text,
             '연속 현황' : datas[9].text,
             '홈 경기 전적' : datas[10].text,
-            '원정 경기 전적' : datas[11].text
+            '원정 경기 전적' : datas[11].text,
+            '날짜' : date
         }
 
         result.append(result_dict)
