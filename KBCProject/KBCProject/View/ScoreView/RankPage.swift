@@ -8,14 +8,16 @@
 import SwiftUI
 
 struct RankPage: View {
+    
     @State var dayRanking: [DayRankModel] = []
     @Binding var isFullScreen: Bool
     
     var body: some View {
-        CustomNavigationBar(titleName: "KBC", backButton: true)
         NavigationView(content: {
             VStack(content: {
-            
+                
+                CustomNavigationBar(titleName: "KBC", backButton: true)
+                
                 List(content: {
                     ForEach(dayRanking, id: \.team, content: { rank in
                         NavigationLink(destination: DayRankDetail(team: rank), label: {
@@ -43,12 +45,17 @@ struct RankCell: View {
             Image(model.team)
                 .resizable()
                 .frame(width: 50, height: 50)
-                .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 20))
+                .scaledToFit()
+                .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 0))
+            
+            Divider()
+                .padding()
             
             Text("\(model.rank)위")
             Text("\(model.team)")
 
         })
+        .frame(height: 60)
     }
 }
 

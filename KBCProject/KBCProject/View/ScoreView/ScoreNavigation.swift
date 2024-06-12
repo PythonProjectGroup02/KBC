@@ -17,12 +17,14 @@ struct ScoreNavigation: View {
     var body: some View {
         NavigationView(content: {
             VStack(content: {
-                Text("현재 시간")
-                Text("\(currentTime)")
-                    .frame(width: 300, height: 100)
-                    .border(Color.black)
-////                    .position(x: 100, y: 100)
-                    .offset(x: -0, y: -200)
+                
+                CustomNavigationBar(titleName: "KBC", backButton: false)
+                
+                Spacer()
+                
+//                Text("\(currentTime)")
+//                    .frame(width: 300, height: 100)
+//                    .border(Color.black)
                 
                 HStack(content: {
                     Spacer()
@@ -62,9 +64,11 @@ struct ScoreNavigation: View {
                     formatter1.dateFormat = "yyyy-MM-dd EEE HH:mm:ss"
                     currentTime = formatter1.string(from: input)
                 })
+                
+                Spacer()
             })
-            
         }) // NaviagtionView
+//        .navigationBarBackButtonHidden(true)
     }
 }
 

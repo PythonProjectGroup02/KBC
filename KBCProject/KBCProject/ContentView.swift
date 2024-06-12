@@ -11,14 +11,6 @@ struct ContentView: View {
     @State var selectPage = 0
     
     var body: some View {
-        Text("KBC")
-            .font(.system(size: 30))
-            .bold()
-            .foregroundStyle(Color.white)
-            .frame(width: 500,height: 50)
-            .background(Color(red: 0.057, green: 0.139, blue: 0.328))
-        
-        
         TabView(selection: $selectPage,
                 content:  {
             MainPage()

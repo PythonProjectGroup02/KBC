@@ -17,6 +17,7 @@
 		2B8F8DC42C182A2800D1AA27 /* OtherSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F8DC32C182A2800D1AA27 /* OtherSplashView.swift */; };
 		2BFBB9D72C19484F00E6308F /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFBB9D62C19484F00E6308F /* PieChartView.swift */; };
 		2BFBB9D92C1964A500E6308F /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFBB9D82C1964A500E6308F /* CustomNavigationBar.swift */; };
+		2BFBB9DB2C196B9100E6308F /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFBB9DA2C196B9100E6308F /* LineChartView.swift */; };
 		933B87762C1056D000AAC60D /* KBCProjectApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87752C1056D000AAC60D /* KBCProjectApp.swift */; };
 		933B87782C1056D000AAC60D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87772C1056D000AAC60D /* ContentView.swift */; };
 		933B877A2C1056D200AAC60D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 933B87792C1056D200AAC60D /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		2B8F8DC32C182A2800D1AA27 /* OtherSplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherSplashView.swift; sourceTree = "<group>"; };
 		2BFBB9D62C19484F00E6308F /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		2BFBB9D82C1964A500E6308F /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
+		2BFBB9DA2C196B9100E6308F /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
 		933B87722C1056D000AAC60D /* KBCProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KBCProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		933B87752C1056D000AAC60D /* KBCProjectApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KBCProjectApp.swift; sourceTree = "<group>"; };
 		933B87772C1056D000AAC60D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -163,6 +165,7 @@
 				2B07B6002C16C24000D61457 /* DayRankDetail.swift */,
 				2B07B6022C16CEB700D61457 /* ScoreNavigation.swift */,
 				2BFBB9D62C19484F00E6308F /* PieChartView.swift */,
+				2BFBB9DA2C196B9100E6308F /* LineChartView.swift */,
 			);
 			path = ScoreView;
 			sourceTree = "<group>";
@@ -297,6 +300,7 @@
 				933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */,
 				933B87962C12959400AAC60D /* MapPage.swift in Sources */,
 				933B87B82C1807B300AAC60D /* ScheduleModel.swift in Sources */,
+				2BFBB9DB2C196B9100E6308F /* LineChartView.swift in Sources */,
 				933B879D2C1295B900AAC60D /* LoginPage.swift in Sources */,
 				2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */,
 				2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */,

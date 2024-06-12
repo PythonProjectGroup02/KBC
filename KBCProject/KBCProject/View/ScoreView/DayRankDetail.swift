@@ -20,7 +20,6 @@ struct DayRankDetail: View {
     
     var body: some View {
         VStack(content: {
-            
             CustomNavigationBar(titleName: "KBC", backButton: true)
             
             ScrollView(.vertical ,content: {
@@ -156,8 +155,6 @@ struct DayRankDetail: View {
         })
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden(true)
-        
-        
     } // body
 
 }
