@@ -12,7 +12,7 @@ struct MainPage: View {
     @State var selectday = 0;
     
     @State var model : ScheduleModel?
-    @State var stadiumText = "tq"
+    @State var stadiumText = ""
     
     var month = [6,7,8]
     var day1 =  Array(11...30)
@@ -22,12 +22,17 @@ struct MainPage: View {
     
     var body: some View {
         VStack(content: {
+            Text("마이팀 : \(myTeam)")
             HStack(content: {
                 Picker("", selection: $selectmonth, content: {
                     ForEach(month, id: \.self) {
                         Text("\($0)")
                     }
                 })
+                .onChange(of: selectmonth, {
+                    findSchedule(month: selectmonth, day: selectday, team: myTeam)
+                })
+                
                 if selectmonth == 6{
                     Picker("", selection: $selectday, content: {
                         ForEach(day1, id: \.self) {
@@ -63,7 +68,6 @@ struct MainPage: View {
     func findSchedule(month: Int, day: Int, team: String) {
         let query = ScheduleVM()
         let url = "http://127.0.0.1:5000/searchmatch?myteam=\(team)&month=\(month)&day=\(day)"
-        print(url)
         Task {
             model = try await query.printSchedule(url: url)
             findStadium(stadium: model!.stadium)
@@ -115,10 +119,17 @@ struct MainPage: View {
                             .frame(width: 120, height: 120)
                         Spacer()
                     })
+                    .padding(20)
                     Text(stadiumText)
+                        .padding(10)
+                    Divider()
+                        .padding(20)
+                    Text("예측 관중수")
+                        .padding(10)
                 })
             }else{
                 Text("경기가 없습니다.")
+                    .padding(30)
             }
         }
     }
