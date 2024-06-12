@@ -44,19 +44,25 @@ def searchteam():
 
     # 월과 일로 필터링
     filtered = teamschedule[(teamschedule['월'] == int(month)) & (teamschedule['일'] == int(day))]
-    
-    filtered
-    
-    away = filtered.iloc[0]['어웨이']
-    home = filtered.iloc[0]['홈']
-    stadium = filtered.iloc[0]['경기장']
 
-    # JSON 응답 생성
-    response = {
-        'away': away,
-        'home': home,
-        'stadium': stadium
-    }
+    if filtered.empty:
+        response = {
+            'away': '',
+            'home': '',
+            'stadium': '',
+            'state' : 0
+        }
+    else:
+        away = filtered.iloc[0]['어웨이']
+        home = filtered.iloc[0]['홈']
+        stadium = filtered.iloc[0]['경기장']
+
+        response = {
+            'away': away,
+            'home': home,
+            'stadium': stadium,
+            'state' : 1
+        }
 
     return json.dumps([response], ensure_ascii=False).encode('utf-8')
 

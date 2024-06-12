@@ -11,4 +11,5 @@ struct ScheduleModel : Codable {
     let away : String
     let home : String
     let stadium : String
+    let state : Int
 }
