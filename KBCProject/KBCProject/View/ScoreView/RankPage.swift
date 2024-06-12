@@ -10,7 +10,7 @@ import SwiftUI
 struct RankPage: View {
     
     @State var dayRanking: [DayRankModel] = []
-    @Binding var isFullScreen: Bool
+//    @Binding var isFullScreen: Bool
     
     var body: some View {
         NavigationView(content: {
@@ -26,7 +26,9 @@ struct RankPage: View {
                     })
                 })
                 .listStyle(.inset)
+                
                 Spacer()
+                
             })
             .onAppear(perform: {
                 let api = RankAPI()
@@ -60,5 +62,5 @@ struct RankCell: View {
 }
 
 #Preview {
-    RankPage(isFullScreen: .constant(false))
+    RankPage()
 }
