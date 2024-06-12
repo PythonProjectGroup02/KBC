@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MainPage: View {
+    @State var myTeam = "한화"
+    
     @State var selectmonth = 0;
     @State var selectday = 0;
     
@@ -18,11 +20,10 @@ struct MainPage: View {
     var day1 =  Array(11...30)
     var day2 = Array(1...31)
     
-    let myTeam = "한화"
+   
     
     var body: some View {
         VStack(content: {
-            Text("마이팀 : \(myTeam)")
             HStack(content: {
                 Picker("", selection: $selectmonth, content: {
                     ForEach(month, id: \.self) {
@@ -62,7 +63,13 @@ struct MainPage: View {
             selectmonth = components.month ?? 6
             selectday = components.day ?? 1
             findSchedule(month: selectmonth, day: selectday, team: myTeam)
+            searchMyTeam()
         }
+    }
+    
+    func searchMyTeam(){
+        let query = TeamVM()
+        myTeam = query.queryDB()
     }
     
     func findSchedule(month: Int, day: Int, team: String) {
