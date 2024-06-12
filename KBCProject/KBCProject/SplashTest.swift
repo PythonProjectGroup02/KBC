@@ -13,6 +13,7 @@ struct SplashTest: View {
         ZStack {
             if showMainView {
                 // 메인 콘텐츠나 이후의 뷰들을 여기에 작성합니다.
+                JoinPage()
             } else {
                 OtherSplashView()
                     .onAppear {
