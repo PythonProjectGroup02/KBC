@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyTeamPage: View {
-    var myTeam: String = "한화"
+    @State var myTeam: String = "한화"
     @State var teamhomepage: String = "https://www.naver.com"
     @State var ticketpage: String = "https://www.naver.com"
     @State var mdpage: String = "https://www.naver.com"
@@ -31,10 +31,15 @@ struct MyTeamPage: View {
             .frame(height: 50)
         })
         .onAppear{
+            searchMyTeam()
             teamInfo()
+            
         }
     }
-    
+    func searchMyTeam(){
+        let query = TeamVM()
+        myTeam = query.queryDB()
+    }
     func teamInfo(){
         switch myTeam{
         case "롯데" :

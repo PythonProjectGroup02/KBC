@@ -291,29 +291,19 @@
 				2B8F8DC02C17EA7200D1AA27 /* SplashView.swift in Sources */,
 				2B8F8DC22C181DF400D1AA27 /* SplashTest.swift in Sources */,
 				933B87912C12957900AAC60D /* ScorePage.swift in Sources */,
-<<<<<<< HEAD
-=======
 				5DDD9C222C1979C30074D638 /* TeamModel.swift in Sources */,
->>>>>>> 9e0e675132a52f115fb08fb0df32df9af5a659b1
 				2B07B5FD2C16A4EA00D61457 /* RankVM.swift in Sources */,
 				933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */,
 				933B87962C12959400AAC60D /* MapPage.swift in Sources */,
 				933B87B82C1807B300AAC60D /* ScheduleModel.swift in Sources */,
 				933B879D2C1295B900AAC60D /* LoginPage.swift in Sources */,
-<<<<<<< HEAD
-				935BD3642C19768D00BE23E5 /* MyTeamPage.swift in Sources */,
-=======
 				5DDD9C202C1979770074D638 /* TeamVM.swift in Sources */,
->>>>>>> 9e0e675132a52f115fb08fb0df32df9af5a659b1
 				2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */,
 				2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */,
 				933B879F2C1295C300AAC60D /* SearchIdPage.swift in Sources */,
 				933B87762C1056D000AAC60D /* KBCProjectApp.swift in Sources */,
 				2B8F8DC42C182A2800D1AA27 /* OtherSplashView.swift in Sources */,
-<<<<<<< HEAD
-=======
-				933B87982C12959D00AAC60D /* MyTeamPage.swift in Sources */,
->>>>>>> 9e0e675132a52f115fb08fb0df32df9af5a659b1
+                935BD3642C19768D00BE23E5 /* MyTeamPage.swift in Sources */,
 				933B87A12C1295CF00AAC60D /* SearchPwPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

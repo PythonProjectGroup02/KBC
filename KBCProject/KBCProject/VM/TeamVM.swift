@@ -29,7 +29,7 @@ class TeamVM: ObservableObject {
         }
     }
     
-    func queryDB() -> [Team] {
+    func queryDB() -> String {
         
         var stmt: OpaquePointer?
         let queryString = "SELECT * FROM teams"
@@ -47,7 +47,7 @@ class TeamVM: ObservableObject {
             print(team)
         }
         
-        return teamList
+        return teamList[0].team
     }
     
     func insertDB(team: String) -> Bool{
