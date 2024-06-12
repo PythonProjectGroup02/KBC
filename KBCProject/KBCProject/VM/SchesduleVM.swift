@@ -9,10 +9,8 @@ import SwiftUI
 
 struct ScheduleVM {
     func printSchedule(url : String) async throws -> ScheduleModel {
-        let (data, _response) = try await URLSession.shared.data(from: URL(string: url)!)
-        print(data)
+        let (data, _) = try await URLSession.shared.data(from: URL(string: url)!)
         let schedule = try JSONDecoder().decode([ScheduleModel].self, from: data)
-        print(schedule)
         return schedule[0]
     }
 }

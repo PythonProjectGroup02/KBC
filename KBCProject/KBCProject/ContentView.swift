@@ -31,7 +31,7 @@ struct ContentView: View {
                     Image(systemName: "flag.2.crossed.fill")
                 }
                 .tag(1)
-            SchedulePage()
+            MyTeamPage()
                 .tabItem {
                     Image(systemName: "baseball.fill")
                 }
