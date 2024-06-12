@@ -160,14 +160,6 @@ struct ScorePage: View {
         let url = "http://127.0.0.1:5000/monthRank?year=\(year)&month=\(String(format: "%02d", month))"
         Task {
             monthRank = try await query.loadJsonData(url: url)
-//            let mirror = Mirror(reflecting: try await query.loadJsonData(url: url))
-//            
-//            teamArr = []
-//            for child in mirror.children {
-////                print(child.label!)
-//                teamArr.append(child.label!)
-//            }
-
         }
     } // func
     

@@ -12,19 +12,10 @@ struct RankPage: View {
     @Binding var isFullScreen: Bool
     
     var body: some View {
+        CustomNavigationBar(titleName: "KBC", backButton: true)
         NavigationView(content: {
             VStack(content: {
-                HStack(content: {
-                    Button(action: {
-                        isFullScreen.toggle()
-                    }, label: {
-                        Image(systemName: "xmark")
-                        Text("닫기")
-                    })
-                })
-                .frame(width: 340, alignment: .leading)
-                .padding()
-                
+            
                 List(content: {
                     ForEach(dayRanking, id: \.team, content: { rank in
                         NavigationLink(destination: DayRankDetail(team: rank), label: {

@@ -5,6 +5,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // 특정월의 순위
 struct MonthRank: Codable {
@@ -47,6 +48,7 @@ struct ResponseData: Codable {
 struct PieModel {
     let name: String
     let value: Int
+    let color: Color
 }
 
 // ------ extensions ------
