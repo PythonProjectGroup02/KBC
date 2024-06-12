@@ -9,7 +9,7 @@ import SwiftUI
 
 struct JoinPage: View {
     var teamname = ["구단을 선택해주세요","LG","두산","키움","SSG","삼성","한화","롯데","NC","기아","KT"]
-    @State var team = ""
+    @State var team = "구단을 선택해주세요"
     @State var showAlert = false
     @State var showConfirmation = false
     @State var showContentView: Bool = false
@@ -17,7 +17,7 @@ struct JoinPage: View {
     var body: some View {
         
         if showContentView {
-                    ContentView() // showContentView가 true이면 ContentView를 보여줍니다.
+                    ContentView()
                 } else {
             VStack(content: {
                 Picker("구단을 선택해주세요", selection: $team){
@@ -29,7 +29,7 @@ struct JoinPage: View {
                    
                 })
                 Button("완료") {
-                    if team == "구단을 선택해주세요" || team.isEmpty {
+                    if team == "구단을 선택해주세요" {
                         showAlert = true // 경고창 표시
                     }else{
                         // 팀을 선택한 경우
@@ -50,6 +50,8 @@ struct JoinPage: View {
                         message: Text("선택한 팀은 \(team)입니다. 메인페이지로 이동하시겠습니까?"),
                         primaryButton: .default(Text("예")) {
                             showContentView = true
+                            let query = TeamVM()
+                            query.insertDB(team: team)
                             },
                         secondaryButton: .cancel(Text("아니오"))
                     )
