@@ -63,7 +63,7 @@ struct MainPage: View {
             selectmonth = components.month ?? 6
             selectday = components.day ?? 1
             findSchedule(month: selectmonth, day: selectday, team: myTeam)
-            searchMyTeam()
+            //searchMyTeam()
         }
     }
     
