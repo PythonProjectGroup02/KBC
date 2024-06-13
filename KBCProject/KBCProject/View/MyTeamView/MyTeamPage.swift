@@ -106,6 +106,7 @@ struct MyTeamPage: View {
                 Spacer()
             })
             .onAppear{
+                print("apper 실행")
                 //searchMyTeam()
                 teamInfo()
             }

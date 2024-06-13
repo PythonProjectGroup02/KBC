@@ -19,6 +19,7 @@ extension Chatting: Hashable {
 }
 
 struct ChatMyTeam: View {
+    
     @State var chatData = [
         Chatting(id: "1", text: "ㅋㅋ"),
         Chatting(id: "2", text: "ㅋㅋ111"),
