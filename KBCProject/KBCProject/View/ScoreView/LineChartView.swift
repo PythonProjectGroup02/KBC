@@ -10,7 +10,7 @@ import Charts
 
 struct LineChartView: View {
     
-    @State var monthRank: ResponseData
+    @Binding var monthRank: ResponseData
     @State var isAnimation: Bool = false
     
     var body: some View {
@@ -65,7 +65,6 @@ struct LineChartView: View {
                         .foregroundStyle(Color.yellow)
                 }
             })
-            .animation(.easeIn, value: isAnimation)
             // 차트의 Ylim, Y축 범위 조정
             .chartYScale(domain: -10.0...(-1.0))
             // 차트의 Y축 부분 라벨
@@ -97,6 +96,12 @@ struct LineChartView: View {
                 })
             })
             .frame(width: 350, height: 300)
+            .onAppear(perform: {
+                withAnimation(.easeIn, {
+                    monthRank = monthRank
+                })
+            })
+
         })
     }
 }

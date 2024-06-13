@@ -8,32 +8,37 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectPage = 0
     
+    @State var selectPage = 0
+
     var body: some View {
-        TabView(selection: $selectPage,
-                content:  {
+        TabView(selection: $selectPage, content:  {
             MainPage()
                 .tabItem {
-                    Image(systemName: "house.fill")
+                    Image(systemName: TabItem.main.rawValue)
                 }
                 .tag(0)
+            
             ScoreNavigation()
                 .tabItem {
-                    Image(systemName: "flag.2.crossed.fill")
+                    Image(systemName: TabItem.score.rawValue)
                 }
                 .tag(1)
+            
             SchedulePage()
                 .tabItem {
-                    Image(systemName: "baseball.fill")
+                    Image(systemName: TabItem.baseball.rawValue)
+
                 }
                 .tag(2)
+            
             MapPage()
                 .tabItem {
-                    Image(systemName: "map.fill")
+                    Image(systemName: TabItem.map.rawValue)
                 }
                 .tag(3)
-        })
+
+        }) // TabView
     }
 }
 

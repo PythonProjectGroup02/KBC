@@ -9,10 +9,6 @@ import SwiftUI
 
 struct ScoreNavigation: View {
     
-    let timer = Timer.publish(every: 1, on: .main, in: .default).autoconnect()
-    @State var currentTime = ""
-    @State var isFullScreen = false
-    
     var body: some View {
         NavigationView(content: {
             VStack(content: {
@@ -22,9 +18,7 @@ struct ScoreNavigation: View {
                 Spacer()
                 
                 HStack(content: {
-                    
                     Spacer()
-                    
                     NavigationLink(destination: ScorePage(), label: {
                         VStack(content: {
                             Image(systemName: "chart.line.uptrend.xyaxis")
@@ -40,9 +34,7 @@ struct ScoreNavigation: View {
                     
                     Spacer()
                     
-                    Button(action: {
-                        isFullScreen.toggle()
-                    }, label: {
+                    NavigationLink(destination: RankPage(), label: {
                         VStack(content: {
                             Image(systemName: "trophy")
                                 .resizable()
@@ -53,21 +45,14 @@ struct ScoreNavigation: View {
                                 .font(.system(size: 30))
                                 .foregroundStyle(Color.black)
                         })
-                        
                     })
-                    
                     Spacer()
-                    
                 }) // HStack
                 
                 Spacer()
             })
-            .fullScreenCover(isPresented: $isFullScreen, content: {
-                RankPage()
-            })
             
         }) // NaviagtionView
-//        .navigationBarBackButtonHidden(true)
     }
 }
 

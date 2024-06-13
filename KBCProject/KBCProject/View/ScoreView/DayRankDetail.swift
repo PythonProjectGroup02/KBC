@@ -84,16 +84,14 @@ struct DayRankDetail: View {
                                 .font(.system(size: 20))
                         })
                     })
-                    
-                    Text("")
-                        .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+                    .padding(.bottom, 20)
                     
                     Text("Record")
                         .bold()
                         .font(.largeTitle)
                         .frame(width: UIScreen.main.bounds.width - 40, alignment: .leading)
                     
-                    HStack(spacing:30, content: {
+                    HStack(spacing: 20, content: {
                         VStack(spacing: 8, content: {
                             Text("홈 경기")
                                 .font(.title)
@@ -142,7 +140,7 @@ struct DayRankDetail: View {
                             })
                         })
                     })
-                    
+                    .padding(.bottom)
                     Spacer()
                     
                 }) // VStack

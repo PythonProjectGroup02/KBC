@@ -9,14 +9,13 @@ import Charts
 
 struct ScorePage: View {
     
-    @State var monthRank: ResponseData?
+    @State var monthRank: ResponseData = ResponseData(두산: [], 롯데: [], 삼성: [], 키움: [], 한화: [], KIA: [], KT: [], LG: [], NC: [], SSG: [])
     @State var selectYear: Int = 2024
     @State var selectMonth: Int = 6
     
     var body: some View {
         VStack {
             CustomNavigationBar(titleName: "KBC", backButton: true)
-            
             // 연,월,팀 선택 Drop Down
             HStack(content: {
                 Spacer()
@@ -54,9 +53,9 @@ struct ScorePage: View {
             .padding(.bottom)
             
             Spacer()
-
-            if let monthRank {
-                LineChartView(monthRank: monthRank)
+            
+            if !monthRank.KIA.isEmpty  {
+                LineChartView(monthRank: $monthRank)
             }
             else {
                 Text("데이터가 없습니다.")
@@ -83,6 +82,6 @@ struct ScorePage: View {
 } // View
 
 #Preview {
-    ContentView()
+    ScorePage()
 }
 

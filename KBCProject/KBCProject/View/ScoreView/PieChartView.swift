@@ -23,8 +23,7 @@ struct PieChartView: View {
                 SectorMark(angle: .value("value", pie.value), innerRadius: .ratio(0.618), outerRadius: selectedType?.name == pie.name ? 185 : 170, angularInset: 1.7)
                     .foregroundStyle(by: .value("", pie.name))
                     .annotation(position: .overlay, content: {
-    //                    Text("\(Double(pie.value) / team.totalgames * 100)%")
-//                            .foregroundStyle(Color.black)
+                        Text("\(pie.value)")
                     })
                     .opacity(selectedType?.name == pie.name ? 1 : 0.5)
             })
@@ -36,50 +35,44 @@ struct PieChartView: View {
                     if let anchor = chartProxy.plotFrame {
                         // 차트의 중심부분
                         let frame = geometry[anchor]
-                        // 선택한 차트의 부분에 따라 차트의 중앙 Text 변경
-                        switch selectedType?.name {
-                        case "승리" :
-                            VStack(content: {
+                        VStack(content: {
+                            if let selectedType {
                                 Text("총 경기수 \(team.totalgames)")
                                     .font(.system(size: 25))
                                     .bold()
-                                Text("승리 \(team.win)")
-                            })
-                            .position(x: frame.midX, y: frame.midY)
-                            
-                        case "패배" :
-                            VStack(content: {
-                                Text("총 경기수 \(team.totalgames)")
-                                    .font(.system(size: 25))
-                                    .bold()
-                                Text("패배 \(team.loss)")
-                            })
-                            .position(x: frame.midX, y: frame.midY)
-                        case "무승부" :
-                            VStack(content: {
-                                Text("총 경기수 \(team.totalgames)")
-                                    .font(.system(size: 25))
-                                    .bold()
-                                Text("무승부 \(team.draw)")
-                            })
-                            .position(x: frame.midX, y: frame.midY)
-                        case _ :
-                            VStack(content: {
+                                
+                                HStack(content: {
+                                    Text("\(selectedType.name)")
+                                    
+                                    // 선택한 차트의 부분에 따라 차트의 중앙 Text 변경
+                                    switch selectedType.name {
+                                    case "승리" :
+                                        Text("\(team.win)")
+                                    case "패배" :
+                                        Text("\(team.loss)")
+                                    case "무승부":
+                                        Text("\(team.draw)")
+                                    case _ :
+                                        Text("")
+                                    }
+                                })
+                            }
+                            else {
                                 Image(team.team)
                                     .resizable()
-                                    .frame(width: 150, height: 150)
+                                    .frame(width: 180, height: 180)
                                     .scaledToFit()
                                     .clipShape(.circle)
-                            })
-                            .position(x: frame.midX, y: frame.midY)
-                        }
+                            }
+                        }) // VStack
+                        .position(x: frame.midX, y: frame.midY)
                     }
                 }
             })
-            .onChange(of: selectedAngle, { old, new in
-                if let new {
+            .onChange(of: selectedAngle, { old, newClick in
+                if let newClick {
                     withAnimation {
-                        getSelectedType(value: new)
+                        getSelectedType(value: newClick)
                     }
                 }
             })

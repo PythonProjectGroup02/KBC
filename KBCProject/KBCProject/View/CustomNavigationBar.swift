@@ -10,7 +10,6 @@ import SwiftUI
 struct CustomNavigationBar: View {
     
     @Environment(\.dismiss) var dismiss
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     
     @State var titleName: String
     @State var backButton: Bool
@@ -20,7 +19,6 @@ struct CustomNavigationBar: View {
             if backButton {
                 HStack(content: {
                     Button(action: {
-                        self.presentationMode.wrappedValue.dismiss()
                         dismiss.callAsFunction()
                     }, label: {
                         HStack(content: {
