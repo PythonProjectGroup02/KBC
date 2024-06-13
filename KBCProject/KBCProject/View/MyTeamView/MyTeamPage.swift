@@ -55,7 +55,7 @@ struct MyTeamPage: View {
                 .padding([.top, .bottom], 30)
                 
                 Divider()
-                    .padding([.bottom, .top], 10)
+                    .padding(.bottom, 30)
                 
                 VStack(content: {
                     NavigationLink(destination: EditMyTeam(), label: {
