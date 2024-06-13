@@ -8,39 +8,33 @@
 import SwiftUI
 
 struct RankPage: View {
+    
     @State var dayRanking: [DayRankModel] = []
-    @Binding var isFullScreen: Bool
+    
+    @State var sum = 0
     
     var body: some View {
-        NavigationView(content: {
-            VStack(content: {
-                HStack(content: {
-                    Button(action: {
-                        isFullScreen.toggle()
-                    }, label: {
-                        Image(systemName: "xmark")
-                        Text("닫기")
+        VStack(content: {
+            
+            CustomNavigationBar(titleName: "KBC", backButton: true)
+            
+            List(content: {
+                ForEach(dayRanking, id: \.team, content: { rank in
+                    NavigationLink(destination: DayRankDetail(team: rank), label: {
+                        RankCell(model: rank)
                     })
                 })
-                .frame(width: 340, alignment: .leading)
-                .padding()
-                
-                List(content: {
-                    ForEach(dayRanking, id: \.team, content: { rank in
-                        NavigationLink(destination: DayRankDetail(team: rank), label: {
-                            RankCell(model: rank)
-                        })
-                    })
-                })
-                .listStyle(.inset)
-                Spacer()
             })
-            .onAppear(perform: {
-                let api = RankAPI()
-                Task {
-                    dayRanking = try await api.loadDayRank()
-                }
-            })
+            .listStyle(.inset)
+            
+            Spacer()
+            
+        })
+        .onAppear(perform: {
+            let api = RankAPI()
+            Task {
+                dayRanking = try await api.loadDayRank()
+            }
         })
     }
 }
@@ -52,15 +46,21 @@ struct RankCell: View {
             Image(model.team)
                 .resizable()
                 .frame(width: 50, height: 50)
-                .padding(EdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 20))
+                .scaledToFit()
+                .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 0))
+            
+            Divider()
+                .padding()
             
             Text("\(model.rank)위")
             Text("\(model.team)")
 
         })
+        .navigationBarBackButtonHidden(true)
+        .frame(height: 60)
     }
 }
 
 #Preview {
-    RankPage(isFullScreen: .constant(false))
+    RankPage()
 }

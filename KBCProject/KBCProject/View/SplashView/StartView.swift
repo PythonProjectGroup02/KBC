@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SplashTest: View {
+struct StartView: View {
     @State var showMainView: Bool = false
     var body: some View {
         ZStack {
@@ -15,7 +15,7 @@ struct SplashTest: View {
                 // 메인 콘텐츠나 이후의 뷰들을 여기에 작성합니다.
                 JoinPage()
             } else {
-                OtherSplashView()
+                SplashView()
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) {
                             withAnimation {
@@ -29,5 +29,5 @@ struct SplashTest: View {
 }
 
 #Preview {
-    SplashTest()
+    StartView()
 }

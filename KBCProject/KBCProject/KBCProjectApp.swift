@@ -11,8 +11,7 @@ import SwiftUI
 struct KBCProjectApp: App {
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            SplashTest()
+            StartView()
         }
     }
 }

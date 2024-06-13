@@ -8,40 +8,56 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var selectPage = 0
     
+    @State var selectPage = 0
+
     var body: some View {
-        Text("KBC")
-            .font(.system(size: 30))
-            .bold()
-            .foregroundStyle(Color.white)
-            .frame(width: 500,height: 50)
-            .background(Color(red: 0.057, green: 0.139, blue: 0.328))
-        
-        
-        TabView(selection: $selectPage,
-                content:  {
+        TabView(selection: $selectPage, content:  {
             MainPage()
                 .tabItem {
-                    Image(systemName: "house.fill")
+                    Image(systemName: TabItem.main.rawValue)
                 }
                 .tag(0)
+            
             ScoreNavigation()
                 .tabItem {
-                    Image(systemName: "flag.2.crossed.fill")
+                    Image(systemName: TabItem.score.rawValue)
                 }
                 .tag(1)
+            
             MyTeamPage()
                 .tabItem {
-                    Image(systemName: "baseball.fill")
+                    Image(systemName: TabItem.baseball.rawValue)
                 }
                 .tag(2)
+            
             MapPage()
                 .tabItem {
-                    Image(systemName: "map.fill")
+                    Image(systemName: TabItem.map.rawValue)
                 }
                 .tag(3)
-        })
+
+        }) // TabView
+    }
+}
+
+enum TabItem: String, CaseIterable {
+    case main = "house.fill"
+    case score = "flag.2.crossed.fill"
+    case baseball = "baseball.fill"
+    case map = "map.fill"
+
+    var title: String {
+        switch self {
+        case .main:
+            return "Main"
+        case .score:
+            return "Score"
+        case .baseball:
+            return "Baseball"
+        case .map:
+            return "Map"
+        }
     }
 }
 

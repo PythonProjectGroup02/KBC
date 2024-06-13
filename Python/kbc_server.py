@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-author : Lcy
-Description : Swift에서 요청
+author : 
+Description : KBC Server
 http://localhost:5000/
 
 """
@@ -15,7 +15,7 @@ import time
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False # utf8
 
-
+# ---- 차트 -----
 @app.route('/monthRank')
 def teamRanking() :
     # 사용자가 선택하는 값
@@ -102,84 +102,59 @@ def crawling_kbo_dayRanking() :
     
     pd.DataFrame(result).to_csv('./Python/Data/rank/day_rank.csv', index=None)
 
+@app.route('/searchmatch')
+def searchteam():
+    myteam = request.args.get('myteam')
+    month = request.args.get('month')
+    day = request.args.get('day')
 
-# @app.route('/update')
-# def updateMySQL() :
-#     code = request.args.get('code')
-#     name = request.args.get('name')
-#     dept = request.args.get('dept')
-#     phone = request.args.get('phone')
+    match myteam :
+        case '롯데':
+            teamschedule = pd.read_csv('./schedule/lotte.csv')
+        case '기아':
+            teamschedule = pd.read_csv('./schedule/kia.csv')
+        case '한화':
+            teamschedule = pd.read_csv('./schedule/hh.csv')
+        case '삼성':
+            teamschedule = pd.read_csv('./schedule/ss.csv')
+        case '두산':
+            teamschedule = pd.read_csv('./schedule/doosan.csv')
+        case 'LG':
+            teamschedule = pd.read_csv('./schedule/lg.csv')
+        case 'NC':
+            teamschedule = pd.read_csv('./Python/schedule/nc.csv')
+        case 'KT':
+            teamschedule = pd.read_csv('./schedule/kt.csv')
+        case 'SSG':
+            teamschedule = pd.read_csv('./schedule/ssg.csv')
+        case '키움':
+            teamschedule = pd.read_csv('./schedule/kiwoom.csv')
+    
+    print(teamschedule)
 
-#     # MySQL Connection
-#     conn = pymysql.connect(
-#         host='127.0.0.1',
-#         user='root',
-#         password='qwer1234',
-#         database='python',
-#         charset='utf8'
-#     )
+    # 월과 일로 필터링
+    filtered = teamschedule[(teamschedule['월'] == int(month)) & (teamschedule['일'] == int(day))]
 
-#     # Connection으로부터 Cursor 생성
-#     curs = conn.cursor()
+    if filtered.empty:
+        response = {
+            'away': '',
+            'home': '',
+            'stadium': '',
+            'state' : 0
+        }
+    else:
+        away = filtered.iloc[0]['어웨이']
+        home = filtered.iloc[0]['홈']
+        stadium = filtered.iloc[0]['경기장']
 
-#     # SQL 문장
-#     sql = 'update students set name=%s, dept=%s, phone=%s where code=%s'
-#     curs.execute(sql, (name,dept,phone,code))
-#     conn.commit()
-#     conn.close()
+        response = {
+            'away': away,
+            'home': home,
+            'stadium': stadium,
+            'state' : 1
+        }
 
-#     return jsonify([{'result' : 'OK'}])
-
-# @app.route('/insert')
-# def insertMySQL() :
-#     code = request.args.get('code')
-#     name = request.args.get('name')
-#     dept = request.args.get('dept')
-#     phone = request.args.get('phone')
-
-#     # MySQL Connection
-#     conn = pymysql.connect(
-#         host='127.0.0.1',
-#         user='root',
-#         password='qwer1234',
-#         database='python',
-#         charset='utf8'
-#     )
-
-#     # Connection으로부터 Cursor 생성
-#     curs = conn.cursor()
-
-#     # SQL 문장
-#     sql = 'insert into students (code,name,dept,phone) values (%s, %s, %s, %s)'
-#     curs.execute(sql, (code,name,dept,phone))
-#     conn.commit()
-#     conn.close()
-
-#     return jsonify([{'result' : 'OK'}])
-
-# @app.route('/delete')
-# def deleteMySQL() :
-#     code = request.args.get('code')
-
-#     # MySQL Connection
-#     conn = pymysql.connect(
-#         host='127.0.0.1',
-#         user='root',
-#         password='qwer1234',
-#         database='python',
-#         charset='utf8'
-#     )
-
-#     # Connection으로부터 Cursor 생성
-#     curs = conn.cursor()
-
-#     # SQL 문장
-#     sql = 'delete from students where code=%s'
-#     curs.execute(sql, code)
-#     conn.commit()
-#     conn.close()
-
-#     return jsonify([{'result' : 'OK'}])
+    return json.dumps([response], ensure_ascii=False).encode('utf-8')
 
 if __name__ == '__main__' :
     app.run(host='127.0.0.1', port=5000, debug=True)
