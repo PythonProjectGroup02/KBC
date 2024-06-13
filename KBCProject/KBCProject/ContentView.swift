@@ -41,6 +41,26 @@ struct ContentView: View {
     }
 }
 
+enum TabItem: String, CaseIterable {
+    case main = "house.fill"
+    case score = "flag.2.crossed.fill"
+    case baseball = "baseball.fill"
+    case map = "map.fill"
+
+    var title: String {
+        switch self {
+        case .main:
+            return "Main"
+        case .score:
+            return "Score"
+        case .baseball:
+            return "Baseball"
+        case .map:
+            return "Map"
+        }
+    }
+}
+
 #Preview {
     ContentView()
 }

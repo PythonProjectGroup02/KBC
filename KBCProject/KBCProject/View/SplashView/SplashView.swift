@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct OtherSplashView: View {
+struct SplashView: View {
     
     @State var isAnimation: Bool = false
     @State var logoText = "Korea Baseball Crowd"
@@ -59,5 +59,5 @@ struct OtherSplashView: View {
 }
 
 #Preview {
-    OtherSplashView()
+    SplashView()
 }

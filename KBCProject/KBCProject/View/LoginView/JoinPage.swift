@@ -17,8 +17,8 @@ struct JoinPage: View {
     var body: some View {
         
         if showContentView {
-                    ContentView()
-                } else {
+            ContentView()
+        } else {
             VStack(content: {
                 Picker("구단을 선택해주세요", selection: $team){
                     ForEach(teamname, id: \.self) {
@@ -26,7 +26,7 @@ struct JoinPage: View {
                     }
                 }
                 .onChange(of: team, {
-                   
+                    
                 })
                 Button("완료") {
                     if team == "구단을 선택해주세요" {
@@ -52,7 +52,7 @@ struct JoinPage: View {
                             showContentView = true
                             let query = TeamVM()
                             query.insertDB(team: team)
-                            },
+                        },
                         secondaryButton: .cancel(Text("아니오"))
                     )
                 }

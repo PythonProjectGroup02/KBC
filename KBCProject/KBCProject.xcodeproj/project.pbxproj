@@ -13,9 +13,8 @@
 		2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B6002C16C24000D61457 /* DayRankDetail.swift */; };
 		2B07B6032C16CEB700D61457 /* ScoreNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B6022C16CEB700D61457 /* ScoreNavigation.swift */; };
 		2B6B42442C19B45900B0DA37 /* CustomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B42432C19B45900B0DA37 /* CustomTabbar.swift */; };
-		2B8F8DC02C17EA7200D1AA27 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F8DBF2C17EA7200D1AA27 /* SplashView.swift */; };
-		2B8F8DC22C181DF400D1AA27 /* SplashTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F8DC12C181DF400D1AA27 /* SplashTest.swift */; };
-		2B8F8DC42C182A2800D1AA27 /* OtherSplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F8DC32C182A2800D1AA27 /* OtherSplashView.swift */; };
+		2B8F8DC22C181DF400D1AA27 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F8DC12C181DF400D1AA27 /* StartView.swift */; };
+		2B8F8DC42C182A2800D1AA27 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F8DC32C182A2800D1AA27 /* SplashView.swift */; };
 		2BFBB9D72C19484F00E6308F /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFBB9D62C19484F00E6308F /* PieChartView.swift */; };
 		2BFBB9D92C1964A500E6308F /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFBB9D82C1964A500E6308F /* CustomNavigationBar.swift */; };
 		2BFBB9DB2C196B9100E6308F /* LineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BFBB9DA2C196B9100E6308F /* LineChartView.swift */; };
@@ -47,9 +46,8 @@
 		2B07B6002C16C24000D61457 /* DayRankDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRankDetail.swift; sourceTree = "<group>"; };
 		2B07B6022C16CEB700D61457 /* ScoreNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreNavigation.swift; sourceTree = "<group>"; };
 		2B6B42432C19B45900B0DA37 /* CustomTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbar.swift; sourceTree = "<group>"; };
-		2B8F8DBF2C17EA7200D1AA27 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
-		2B8F8DC12C181DF400D1AA27 /* SplashTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashTest.swift; sourceTree = "<group>"; };
-		2B8F8DC32C182A2800D1AA27 /* OtherSplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherSplashView.swift; sourceTree = "<group>"; };
+		2B8F8DC12C181DF400D1AA27 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
+		2B8F8DC32C182A2800D1AA27 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		2BFBB9D62C19484F00E6308F /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		2BFBB9D82C1964A500E6308F /* CustomNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		2BFBB9DA2C196B9100E6308F /* LineChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineChartView.swift; sourceTree = "<group>"; };
@@ -87,6 +85,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2BCF56322C1A7D0C0030F047 /* SplashView */ = {
+			isa = PBXGroup;
+			children = (
+				2B8F8DC12C181DF400D1AA27 /* StartView.swift */,
+				2B8F8DC32C182A2800D1AA27 /* SplashView.swift */,
+			);
+			path = SplashView;
+			sourceTree = "<group>";
+		};
+		2BCF56332C1A7D280030F047 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				2B6B42432C19B45900B0DA37 /* CustomTabbar.swift */,
+				2BFBB9D82C1964A500E6308F /* CustomNavigationBar.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		933B87692C1056D000AAC60D = {
 			isa = PBXGroup;
 			children = (
@@ -115,9 +131,6 @@
 				933B87772C1056D000AAC60D /* ContentView.swift */,
 				933B87792C1056D200AAC60D /* Assets.xcassets */,
 				933B877B2C1056D200AAC60D /* Preview Content */,
-				2B8F8DC12C181DF400D1AA27 /* SplashTest.swift */,
-				2B8F8DC32C182A2800D1AA27 /* OtherSplashView.swift */,
-				2B6B42432C19B45900B0DA37 /* CustomTabbar.swift */,
 			);
 			path = KBCProject;
 			sourceTree = "<group>";
@@ -191,13 +204,13 @@
 		933B87A62C1295FF00AAC60D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				2BFBB9D82C1964A500E6308F /* CustomNavigationBar.swift */,
+				2BCF56332C1A7D280030F047 /* Custom */,
+				2BCF56322C1A7D0C0030F047 /* SplashView */,
 				933B879A2C1295A700AAC60D /* LoginView */,
 				933B878F2C12955400AAC60D /* ScoreView */,
 				933B878D2C12947500AAC60D /* MapView */,
 				933B878C2C12946B00AAC60D /* MyTeamView */,
 				933B878B2C12946100AAC60D /* MainView */,
-				2B8F8DBF2C17EA7200D1AA27 /* SplashView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -302,8 +315,7 @@
 				2B07B6032C16CEB700D61457 /* ScoreNavigation.swift in Sources */,
 				2BFBB9D72C19484F00E6308F /* PieChartView.swift in Sources */,
 				2B07B5FB2C16A4C100D61457 /* RankModel.swift in Sources */,
-				2B8F8DC02C17EA7200D1AA27 /* SplashView.swift in Sources */,
-				2B8F8DC22C181DF400D1AA27 /* SplashTest.swift in Sources */,
+				2B8F8DC22C181DF400D1AA27 /* StartView.swift in Sources */,
 				933B87912C12957900AAC60D /* ScorePage.swift in Sources */,
 				2B07B5FD2C16A4EA00D61457 /* RankVM.swift in Sources */,
 				2B6B42442C19B45900B0DA37 /* CustomTabbar.swift in Sources */,
@@ -318,8 +330,8 @@
 				2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */,
 				933B879F2C1295C300AAC60D /* SearchIdPage.swift in Sources */,
 				933B87762C1056D000AAC60D /* KBCProjectApp.swift in Sources */,
-				2B8F8DC42C182A2800D1AA27 /* OtherSplashView.swift in Sources */,
-                935BD3642C19768D00BE23E5 /* MyTeamPage.swift in Sources */,
+				2B8F8DC42C182A2800D1AA27 /* SplashView.swift in Sources */,
+				935BD3642C19768D00BE23E5 /* MyTeamPage.swift in Sources */,
 				933B87A12C1295CF00AAC60D /* SearchPwPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
