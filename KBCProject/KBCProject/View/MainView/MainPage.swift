@@ -24,6 +24,8 @@ struct MainPage: View {
     
     var body: some View {
         VStack(content: {
+            CustomNavigationBar(titleName: "KBC", backButton: false)
+            Spacer()
             HStack(content: {
                 Picker("", selection: $selectmonth, content: {
                     ForEach(month, id: \.self) {
@@ -55,6 +57,8 @@ struct MainPage: View {
                 }
             })
             matchView
+            
+            Spacer()
         })
         .onAppear{
             let today = Date()

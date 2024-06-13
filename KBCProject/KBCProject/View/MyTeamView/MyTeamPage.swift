@@ -14,7 +14,10 @@ struct MyTeamPage: View {
     @State var mdpage: String = "https://www.naver.com"
 
     var body: some View {
+        NavigationView(content: {
         VStack(content: {
+            CustomNavigationBar(titleName: "KBC", backButton: false)
+                .padding(.bottom,100)
             Image("\(myTeam)")
                 .resizable()
                 .frame(width: 200, height: 150)
@@ -29,12 +32,27 @@ struct MyTeamPage: View {
                     .foregroundColor(.black)
             })
             .frame(height: 50)
+            
+            Divider()
+                .padding(.bottom,50)
+                .padding(.top,50)
+            
+                List(content: {
+                    NavigationLink("tq", destination: MainPage())
+                    Text("fuckyou")
+                })
+                .frame(height: 150)
+                .listStyle(.plain)
+            
+            
+            Spacer()
         })
         .onAppear{
             //searchMyTeam()
             teamInfo()
             
         }
+        })
     }
     func searchMyTeam(){
         let query = TeamVM()

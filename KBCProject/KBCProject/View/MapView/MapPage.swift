@@ -19,6 +19,8 @@ struct MapPage: View {
     
     var body: some View {
         VStack(content: {
+            CustomNavigationBar(titleName: "KBC", backButton: false)
+            Spacer()
             Picker("구단을 선택해주세요", selection: $team){
                 ForEach(teamname, id: \.self) {
                     Text($0)
@@ -41,6 +43,7 @@ struct MapPage: View {
             .frame(height: CGFloat(mapheight))
             
             info
+            Spacer()
         })
     }
     @ViewBuilder
