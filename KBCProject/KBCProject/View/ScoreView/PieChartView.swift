@@ -60,9 +60,9 @@ struct PieChartView: View {
                             else {
                                 Image(team.team)
                                     .resizable()
-                                    .frame(width: 180, height: 180)
-                                    .scaledToFit()
-                                    .clipShape(.circle)
+                                    .scaledToFill()
+                                    .frame(width: 130, height: 130)
+//                                    .clipShape(.circle)
                             }
                         }) // VStack
                         .position(x: frame.midX, y: frame.midY)

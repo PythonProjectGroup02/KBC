@@ -36,6 +36,7 @@ struct RankPage: View {
                 dayRanking = try await api.loadDayRank()
             }
         })
+        .navigationBarBackButtonHidden(true)
     }
 }
 
@@ -45,8 +46,8 @@ struct RankCell: View {
         HStack(content: {
             Image(model.team)
                 .resizable()
+                .scaledToFill()
                 .frame(width: 50, height: 50)
-                .scaledToFit()
                 .padding(EdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 0))
             
             Divider()
@@ -56,7 +57,6 @@ struct RankCell: View {
             Text("\(model.team)")
 
         })
-        .navigationBarBackButtonHidden(true)
         .frame(height: 60)
     }
 }
