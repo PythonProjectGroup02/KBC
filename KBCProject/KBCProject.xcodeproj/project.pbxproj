@@ -26,9 +26,6 @@
 		933B878A2C1058BE00AAC60D /* KBO Dia Gothic_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 933B87872C1058BE00AAC60D /* KBO Dia Gothic_light.otf */; };
 		933B87912C12957900AAC60D /* ScorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87902C12957900AAC60D /* ScorePage.swift */; };
 		933B87962C12959400AAC60D /* MapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87952C12959400AAC60D /* MapPage.swift */; };
-		933B879D2C1295B900AAC60D /* LoginPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B879C2C1295B900AAC60D /* LoginPage.swift */; };
-		933B879F2C1295C300AAC60D /* SearchIdPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B879E2C1295C300AAC60D /* SearchIdPage.swift */; };
-		933B87A12C1295CF00AAC60D /* SearchPwPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87A02C1295CF00AAC60D /* SearchPwPage.swift */; };
 		933B87A32C1295E500AAC60D /* JoinPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87A22C1295E500AAC60D /* JoinPage.swift */; };
 		933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87A42C1295FC00AAC60D /* MainPage.swift */; };
 		933B87B62C18078600AAC60D /* SchesduleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87B52C18078600AAC60D /* SchesduleVM.swift */; };
@@ -58,9 +55,6 @@
 		933B87872C1058BE00AAC60D /* KBO Dia Gothic_light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KBO Dia Gothic_light.otf"; sourceTree = "<group>"; };
 		933B87902C12957900AAC60D /* ScorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePage.swift; sourceTree = "<group>"; };
 		933B87952C12959400AAC60D /* MapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPage.swift; sourceTree = "<group>"; };
-		933B879C2C1295B900AAC60D /* LoginPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPage.swift; sourceTree = "<group>"; };
-		933B879E2C1295C300AAC60D /* SearchIdPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchIdPage.swift; sourceTree = "<group>"; };
-		933B87A02C1295CF00AAC60D /* SearchPwPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPwPage.swift; sourceTree = "<group>"; };
 		933B87A22C1295E500AAC60D /* JoinPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPage.swift; sourceTree = "<group>"; };
 		933B87A42C1295FC00AAC60D /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
 		933B87B52C18078600AAC60D /* SchesduleVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchesduleVM.swift; sourceTree = "<group>"; };
@@ -169,9 +163,6 @@
 		933B879A2C1295A700AAC60D /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
-				933B879C2C1295B900AAC60D /* LoginPage.swift */,
-				933B879E2C1295C300AAC60D /* SearchIdPage.swift */,
-				933B87A02C1295CF00AAC60D /* SearchPwPage.swift */,
 				933B87A22C1295E500AAC60D /* JoinPage.swift */,
 			);
 			path = LoginView;
@@ -296,15 +287,12 @@
 				933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */,
 				933B87962C12959400AAC60D /* MapPage.swift in Sources */,
 				933B87B82C1807B300AAC60D /* ScheduleModel.swift in Sources */,
-				933B879D2C1295B900AAC60D /* LoginPage.swift in Sources */,
 				5DDD9C202C1979770074D638 /* TeamVM.swift in Sources */,
 				2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */,
 				2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */,
-				933B879F2C1295C300AAC60D /* SearchIdPage.swift in Sources */,
 				933B87762C1056D000AAC60D /* KBCProjectApp.swift in Sources */,
 				2B8F8DC42C182A2800D1AA27 /* OtherSplashView.swift in Sources */,
-                935BD3642C19768D00BE23E5 /* MyTeamPage.swift in Sources */,
-				933B87A12C1295CF00AAC60D /* SearchPwPage.swift in Sources */,
+				935BD3642C19768D00BE23E5 /* MyTeamPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

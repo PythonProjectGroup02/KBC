@@ -31,7 +31,7 @@ struct MyTeamPage: View {
             .frame(height: 50)
         })
         .onAppear{
-            searchMyTeam()
+            //searchMyTeam()
             teamInfo()
             
         }
