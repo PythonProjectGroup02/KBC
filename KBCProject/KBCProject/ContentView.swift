@@ -25,10 +25,9 @@ struct ContentView: View {
                 }
                 .tag(1)
             
-            SchedulePage()
+            MyTeamPage()
                 .tabItem {
                     Image(systemName: TabItem.baseball.rawValue)
-
                 }
                 .tag(2)
             

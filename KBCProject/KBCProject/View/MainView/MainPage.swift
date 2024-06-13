@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct MainPage: View {
+    @State var myTeam = "한화"
+    
     @State var selectmonth = 0;
     @State var selectday = 0;
     
     @State var model : ScheduleModel?
-    @State var stadiumText = "tq"
+    @State var stadiumText = ""
     
     var month = [6,7,8]
     var day1 =  Array(11...30)
     var day2 = Array(1...31)
     
-    let myTeam = "한화"
+   
     
     var body: some View {
         VStack(content: {
@@ -28,6 +30,10 @@ struct MainPage: View {
                         Text("\($0)")
                     }
                 })
+                .onChange(of: selectmonth, {
+                    findSchedule(month: selectmonth, day: selectday, team: myTeam)
+                })
+                
                 if selectmonth == 6{
                     Picker("", selection: $selectday, content: {
                         ForEach(day1, id: \.self) {
@@ -57,13 +63,18 @@ struct MainPage: View {
             selectmonth = components.month ?? 6
             selectday = components.day ?? 1
             findSchedule(month: selectmonth, day: selectday, team: myTeam)
+            searchMyTeam()
         }
+    }
+    
+    func searchMyTeam(){
+        let query = TeamVM()
+        myTeam = query.queryDB()
     }
     
     func findSchedule(month: Int, day: Int, team: String) {
         let query = ScheduleVM()
         let url = "http://127.0.0.1:5000/searchmatch?myteam=\(team)&month=\(month)&day=\(day)"
-        print(url)
         Task {
             model = try await query.printSchedule(url: url)
             findStadium(stadium: model!.stadium)
@@ -115,10 +126,17 @@ struct MainPage: View {
                             .frame(width: 120, height: 120)
                         Spacer()
                     })
+                    .padding(20)
                     Text(stadiumText)
+                        .padding(10)
+                    Divider()
+                        .padding(20)
+                    Text("예측 관중수")
+                        .padding(10)
                 })
             }else{
                 Text("경기가 없습니다.")
+                    .padding(30)
             }
         }
     }
