@@ -54,10 +54,34 @@ class TeamVM: ObservableObject {
         var stmt: OpaquePointer?
         let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
         let queryString = "INSERT INTO teams (tteam) VALUES (?)"
+        print(team+"insertDB 실행")
+        if sqlite3_prepare(db, queryString, -1, &stmt, nil) != SQLITE_OK {
+                let errMsg = String(cString: sqlite3_errmsg(db)!)
+                print("error preparing insert statement: \(errMsg)")
+                return false
+            }
+        
+        sqlite3_bind_text(stmt, 1, team, -1, SQLITE_TRANSIENT)
+        
+        if sqlite3_step(stmt) == SQLITE_DONE{
+            print("팀 \(team)이 성공적으로 데이터베이스에 추가되었습니다.")
+            return true
+        }else{
+            let errMsg = String(cString: sqlite3_errmsg(db)!)
+                    print("error inserting team: \(errMsg)")
+            return false
+        }
+    }
+    
+    func updateDB(team: String, id: Int32) -> Bool{
+        var stmt: OpaquePointer?
+        let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+        let queryString = "UPDATE teams SET tid = ?, tteam = ? WHERE tid = ?"
         
         sqlite3_prepare(db, queryString, -1, &stmt, nil)
         
         sqlite3_bind_text(stmt, 1, team, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_int(stmt, 2, id)
         
         if sqlite3_step(stmt) == SQLITE_DONE{
             return true
