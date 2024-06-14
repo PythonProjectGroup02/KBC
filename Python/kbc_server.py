@@ -11,6 +11,7 @@ import json
 import pymysql
 import pandas as pd
 import time
+from sqlalchemy import create_engine
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False # utf8
@@ -155,6 +156,88 @@ def searchteam():
         }
 
     return json.dumps([response], ensure_ascii=False).encode('utf-8')
+
+@app.route('/cheerContent')
+def cheerSelectMySQL() :
+    # engine = create_engine("mysql+pymysql://root:qwer1234@127.0.0.1:3306/python")
+    # conn = engine.connect()
+
+    # data = pd.read_sql_table('cheer', conn)
+    # data.cdate = data.cdate.dt.strftime("%Y-%m-%d %H:%M:%S")
+
+    # response = []
+    # for i in range(len(data)) :
+    #     response.append(data.loc[i, :].to_dict())
+
+    team = request.args.get('team')
+
+    conn = pymysql.connect(
+        host='127.0.0.1',
+        user='root',
+        password='qwer1234',
+        database='python',
+        charset='utf8'
+    )
+
+    # Connection으로부터 Cursor 생성
+    curs = conn.cursor()
+
+    # SQL 문장
+    sql = "select * from cheer where cteam = %s order by cdate desc"
+    curs.execute(sql, team)
+    rows = curs.fetchall()
+    conn.close()
+
+    response = []
+    for row in rows :
+        result_dict = {
+            "id" : row[0],
+            "content" : row[1],
+            "date" : row[2].strftime("%y-%m-%d %H:%M:%S"),
+            "nickname" : row[3],
+            "team" : row[4]
+        }
+        response.append(result_dict)
+
+    state = 1
+
+    if len(response) == 0 :
+        state = 0
+
+    result = {
+        'state' : state,
+        'data' : response
+    }
+
+    return json.dumps(result, ensure_ascii=False).encode('utf-8')
+
+@app.route("/insertCheer")
+def cheerInsertMySQL() :
+    cteam = request.args.get('myteam')
+    ctext = request.args.get('text')
+    cname = request.args.get('nickname')
+
+    conn = pymysql.connect(
+        host='127.0.0.1',
+        user='root',
+        password='qwer1234',
+        database='python',
+        charset='utf8'
+    )
+
+    # Connection으로부터 Cursor 생성
+    curs = conn.cursor()
+
+    try :
+        # SQL 문장
+        sql = "insert into cheer (ctext, cdate, cname, cteam) values (%s, now(), %s, %s)"
+        curs.execute(sql, (ctext, cname, cteam))
+        conn.commit()
+        conn.close()
+        return json.dumps({"result" : "success"}, ensure_ascii=False).encode('utf-8')
+    except :
+        conn.close()
+        return json.dumps({"result" : "error"}, ensure_ascii=False).encode('utf-8')
 
 if __name__ == '__main__' :
     app.run(host='127.0.0.1', port=5000, debug=True)
