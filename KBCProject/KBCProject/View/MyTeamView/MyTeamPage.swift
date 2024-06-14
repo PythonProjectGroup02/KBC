@@ -106,7 +106,7 @@ struct MyTeamPage: View {
                 Spacer()
             })
             .onAppear{
-                //searchMyTeam()
+                searchMyTeam()
                 teamInfo()
             }
         }) // NavigationView

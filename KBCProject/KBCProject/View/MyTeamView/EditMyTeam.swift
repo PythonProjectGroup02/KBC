@@ -9,7 +9,7 @@ import SwiftUI
 
 struct EditMyTeam: View {
     
-    var teamname = ["LG","두산","키움","SSG","삼성","한화","롯데","NC","기아","KT"]
+    var teamname = ["LG","두산","키움","SSG","삼성","한화","롯데","NC","KIA","KT"]
     @State var team: String? = nil
     @State var showErrorAlert = false
     @State var showConfirmaAlert = false
