@@ -8,56 +8,115 @@
 import SwiftUI
 
 struct MyTeamPage: View {
-    @State var myTeam: String = "한화"
+    @State var myTeam: String = "삼성"
     @State var teamhomepage: String = "https://www.naver.com"
     @State var ticketpage: String = "https://www.naver.com"
     @State var mdpage: String = "https://www.naver.com"
-
+    
+    @State var pageArr: [String] = []
+    
+    @State var animationValue: Bool = false
+    
     var body: some View {
         NavigationView(content: {
-        VStack(content: {
-            CustomNavigationBar(titleName: "KBC", backButton: false)
-                .padding(.bottom,100)
-            Image("\(myTeam)")
-                .resizable()
-                .frame(width: 200, height: 150)
-            HStack(content:{
-                Link("팀 홈페이지", destination: URL(string: teamhomepage)!)
-                    .foregroundColor(.black)
-                Divider()
-                Link("티켓팅 페이지", destination: URL(string: ticketpage)!)
-                    .foregroundColor(.black)
-                Divider()
-                Link("MD 구매", destination: URL(string: mdpage)!)
-                    .foregroundColor(.black)
-            })
-            .frame(height: 50)
-            
-            Divider()
-                .padding(.bottom,50)
-                .padding(.top,50)
-            
-                List(content: {
-                    NavigationLink("tq", destination: MainPage())
-                    Text("fuckyou")
+            VStack(content: {
+                
+                CustomNavigationBar(titleName: "KBC", backButton: false)
+                    .padding(.bottom, 70)
+                
+                Image("\(myTeam)")
+                    .resizable()
+                    .scaledToFill()
+                    .frame(width: 200, height: 150)
+                
+                HStack(spacing: 10, content:{
+                    Link("팀 홈페이지", destination: URL(string: teamhomepage)!)
+                        .foregroundColor(.black)
+                        .font(.title3)
+                        .bold()
+                    
+                    Divider()
+                        .frame(height: 30)
+                    
+                    Link("티켓팅 페이지", destination: URL(string: ticketpage)!)
+                        .foregroundColor(.black)
+                        .font(.title3)
+                        .bold()
+                    
+                    Divider()
+                        .frame(height: 30)
+                    
+                    Link("MD 구매", destination: URL(string: mdpage)!)
+                        .foregroundColor(.black)
+                        .font(.title3)
+                        .bold()
                 })
-                .frame(height: 150)
-                .listStyle(.plain)
-            
-            
-            Spacer()
-        })
-        .onAppear{
-            //searchMyTeam()
-            teamInfo()
-            
-        }
-        })
+                .frame(height: 50)
+                .padding([.top, .bottom], 30)
+                
+                Divider()
+                    .padding(.bottom, 30)
+                
+                VStack(content: {
+                    NavigationLink(destination: EditMyTeam(), label: {
+                        HStack(content: {
+                            Text("내 관심 팀 수정")
+                                .foregroundStyle(Color.black)
+                                .font(.title3)
+                                .frame(width: 180, alignment: .leading)
+                            
+                            Image(systemName: "arrowshape.forward.fill")
+                                .foregroundStyle(Color.gray)
+                                .animation(.bouncy, value: animationValue)
+                        })
+                        .onAppear(perform: {
+                            animationValue = true
+                        })
+                    })
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.gray, lineWidth: 2)
+                            .opacity(0.4)
+                            .frame(width: UIScreen.main.bounds.width / 5 * 4 )
+                    )
+                    
+                    NavigationLink(destination: ChatMyTeam(), label: {
+                        HStack(content: {
+                            Text("팀 응원하기")
+                                .foregroundStyle(Color.black)
+                                .font(.title3)
+                                .frame(width: 180, alignment: .leading)
+                            
+                            Image(systemName: "arrowshape.forward.fill")
+                                .foregroundStyle(Color.gray)
+                        })
+                    })
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 20)
+                            .stroke(Color.gray, lineWidth: 2)
+                            .opacity(0.4)
+                            .frame(width: UIScreen.main.bounds.width / 5 * 4 )
+                    )
+                })
+                .frame(width: UIScreen.main.bounds.width, height: 100)
+                .padding()
+                
+                Spacer()
+            })
+            .onAppear{
+                //searchMyTeam()
+                teamInfo()
+            }
+        }) // NavigationView
     }
+    
     func searchMyTeam(){
         let query = TeamVM()
         myTeam = query.queryDB()
     }
+    
     func teamInfo(){
         switch myTeam{
         case "롯데" :
@@ -102,9 +161,9 @@ struct MyTeamPage: View {
             mdpage = "https://www.ktwizstore.co.kr/"
         default :
             teamhomepage = ""
-            
         }
     }
+    
 }
 
 #Preview {

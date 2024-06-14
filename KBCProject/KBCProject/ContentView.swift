@@ -36,7 +36,6 @@ struct ContentView: View {
                     Image(systemName: TabItem.map.rawValue)
                 }
                 .tag(3)
-
         }) // TabView
     }
 }
