@@ -12,241 +12,114 @@ struct MapPage: View {
     @State var center = MapCameraPosition.region(MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 36.654899, longitude: 127.928812),
         span: MKCoordinateSpan(latitudeDelta: 5, longitudeDelta: 2)))
-    var teamname = ["구단을 선택해주세요","LG","두산","키움","SSG","삼성","한화","롯데","NC","기아","KT"]
-    @State var team = ""
+    var teamInfo = [
+        ("구장을 선택해주세요", CLLocationCoordinate2D(latitude: 36.654899, longitude: 127.928812)),
+        ("서울종합운동장 야구장", CLLocationCoordinate2D.jamsilMarker),
+        ("고척 스카이돔", CLLocationCoordinate2D.kiwoomMarker),
+        ("인천 SSG 랜더스필드", CLLocationCoordinate2D.ssgMarker),
+        ("광주-기아 챔피언스 필드", CLLocationCoordinate2D.kiaMarker),
+        ("사직 야구장", CLLocationCoordinate2D.lotteMarker),
+        ("대구 삼성 라이온즈 파크", CLLocationCoordinate2D.samsungMarker),
+        ("대전 한화생명 이글스파크", CLLocationCoordinate2D.hanhwaMarker),
+        ("창원 NC 파크", CLLocationCoordinate2D.ncMarker),
+        ("수원 케이티 위즈 파크", CLLocationCoordinate2D.ktMarker)
+    ]
+    @State var team = "구장을 선택해주세요"
     @State var mapheight = 600
-    @State var gudanName = ""
     
     var body: some View {
-        VStack(content: {
+        VStack {
             CustomNavigationBar(titleName: "KBC", backButton: false)
             Spacer()
-            Picker("구단을 선택해주세요", selection: $team){
-                ForEach(teamname, id: \.self) {
+            Picker("", selection: $team) {
+                ForEach(teamInfo.map { $0.0 }, id: \.self) {
                     Text($0)
                 }
             }
-            .onChange(of: team, {
+            .onChange(of: team) {
                 selectTeam()
-            })
-            Map(position: $center, content: {
-                Marker("잠실구장", systemImage: "mappin.and.ellipse", coordinate: .jamsilMarker)
-                Marker("고척 스카이돔", systemImage: "mappin.and.ellipse", coordinate: .kiwoomMarker)
-                Marker("인천 랜더스 필드", systemImage: "mappin.and.ellipse", coordinate: .ssgMarker)
-                Marker("광주 챔피언스 필드", systemImage: "mappin.and.ellipse", coordinate: .kiaMarker)
-                Marker("부산 사직구장", systemImage: "mappin.and.ellipse", coordinate: .lotteMarker)
-                Marker("대구 라이온즈 파크", systemImage: "mappin.and.ellipse", coordinate: .samsungMarker)
-                Marker("대전 이글스 파크", systemImage: "mappin.and.ellipse", coordinate: .hanhwaMarker)
-                Marker("창원 NC 파크", systemImage: "mappin.and.ellipse", coordinate: .ncMarker)
-                Marker("수원 위즈 파크", systemImage: "mappin.and.ellipse", coordinate: .ktMarker)
-            })
+            }
+            Map(position: $center) {
+                ForEach(teamInfo.dropFirst(), id: \.0) { team in
+                    Marker(team.0, systemImage: "mappin.and.ellipse", coordinate: team.1)
+                }
+            }
             .frame(height: CGFloat(mapheight))
             
             info
             Spacer()
-        })
+        }
     }
+    
     @ViewBuilder
     var info: some View {
         switch team {
-        case "LG","두산":
-            VStack(content: {
-                Spacer()
-                HStack(content: {
-                    Spacer()
-                    Image("LG")
-                        .resizable()
-                        .frame(width: 70, height:60)
-                    Spacer()
-                    Image("두산")
-                        .resizable()
-                        .frame(width: 70, height:60)
-                    Spacer()
-                })
-                Spacer()
-                Text("서울종합운동장 야구장")
-                    .bold()
-                    .font(.system(size: 20))
-                Spacer()
-                Text("사용 구단 : LG 트윈스, 두산 베어스")
-                Spacer()
-                Text("주소 : 서울특별시 송파구 올림픽로 25 (잠실동)")
-                Spacer()
-                Text("좌석 규모 : 23,750석")
-                Spacer()
-            })
-            
-        case "키움":
-            Spacer()
-            Image("키움")
-                .resizable()
-                .frame(width: 70, height:60)
-            Spacer()
-            Text("고척 스카이돔")
-                .bold()
-                .font(.system(size: 20))
-            Spacer()
-            Text("사용 구단 : 키움 히어로즈")
-            Spacer()
-            Text("주소 : 서울특별시 구로구 경인로 430 (고척동)")
-            Spacer()
-            Text("좌석 규모 : 16,000석 (최대 16,744명 수용)")
-            Spacer()
-            
-        case "SSG":
-            Spacer()
-            Image("SSG")
-                .resizable()
-                .frame(width: 70, height:60)
-            Spacer()
-            Text("인천 SSG 랜더스필드")
-                .bold()
-                .font(.system(size: 20))
-            Spacer()
-            Text("사용 구단 : SSG 랜더스")
-            Spacer()
-            Text("주소 : 인천광역시 미추홀구 매소홀로 618 (문학동)")
-            Spacer()
-            Text("좌석 규모 : 23,000석")
-            Spacer()
-        case "삼성":
-            Spacer()
-            Image("삼성")
-                .resizable()
-                .frame(width: 70, height:60)
-            Spacer()
-            Text("대구 삼성 라이온즈 파크")
-                .bold()
-                .font(.system(size: 20))
-            Spacer()
-            Text("사용 구단 : 삼성 라이온즈")
-            Spacer()
-            Text("주소 : 대구광역시 수성구 야구전설로 1 (연호동)")
-            Spacer()
-            Text("좌석 규모 : 24,000석")
-            Spacer()
-        case "한화":
-            Spacer()
-            Image("한화")
-                .resizable()
-                .frame(width: 70, height:60)
-            Spacer()
-            Text("대전 한화생명 이글스파크")
-                .bold()
-                .font(.system(size: 20))
-            Spacer()
-            Text("사용 구단 : 한화 이글스")
-            Spacer()
-            Text("주소 : 대전광역시 중구 대종로 373 (부사동)")
-            Spacer()
-            Text("좌석 규모 : 13,000석")
-            Spacer()
-        case "롯데":
-            Spacer()
-            Image("롯데")
-                .resizable()
-                .frame(width: 70, height:60)
-            Spacer()
-            Text("사직 야구장")
-                .bold()
-                .font(.system(size: 20))
-            Spacer()
-            Text("사용 구단 : 롯데 자이언츠")
-            Spacer()
-            Text("주소 : 부산광역시 동래구 사직로 45 (사직동)")
-            Spacer()
-            Text("좌석 규모 : 22,758석")
-            Spacer()
-        case "NC":
-            Spacer()
-            Image("NC")
-                .resizable()
-                .frame(width: 70, height:60)
-            Spacer()
-            Text("창원 NC 파크")
-                .bold()
-                .font(.system(size: 20))
-            Spacer()
-            Text("사용 구단 : NC 다이노스")
-            Spacer()
-            Text("주소 : 경상남도 창원시 마산회원구 삼호로 63 (양덕동)")
-            Spacer()
-            Text("좌석 규모 : 17,891석")
-            Spacer()
-        case "기아":
-            Spacer()
-            Image("기아")
-                .resizable()
-                .frame(width: 70, height:60)
-            Spacer()
-            Text("광주-기아 챔피언스 필드")
-                .bold()
-                .font(.system(size: 20))
-            Spacer()
-            Text("사용 구단 : 기아 타이거즈")
-            Spacer()
-            Text("주소 : 광주광역시 북구 서림로 10 (임동)")
-            Spacer()
-            Text("좌석 규모 : 20,500석")
-            Spacer()
-        case "KT":
-            Spacer()
-            Image("KT")
-                .resizable()
-                .frame(width: 70, height:60)
-            Spacer()
-            Text("수원 케이티 위즈 파크")
-                .bold()
-                .font(.system(size: 20))
-            Spacer()
-            Text("사용 구단 : KT 위즈")
-            Spacer()
-            Text("주소 : 경기도 수원시 장안구 경수대로 893 (조원동)")
-            Spacer()
-            Text("좌석 규모 : 18,700석")
-            Spacer()
+        case "서울종합운동장 야구장":
+            stadiumInfo(teamImages: ["LG", "두산"], stadiumName: "서울종합운동장 야구장", teams: "LG 트윈스, 두산 베어스", address: "서울특별시 송파구 올림픽로 25 (잠실동)", capacity: "23,750석")
+        case "고척 스카이돔":
+            stadiumInfo(teamImages: ["키움"], stadiumName: "고척 스카이돔", teams: "키움 히어로즈", address: "서울특별시 구로구 경인로 430 (고척동)", capacity: "16,000석 (최대 16,744명 수용)")
+        case "인천 SSG 랜더스필드":
+            stadiumInfo(teamImages: ["SSG"], stadiumName: "인천 SSG 랜더스필드", teams: "SSG 랜더스", address: "인천광역시 미추홀구 매소홀로 618 (문학동)", capacity: "23,000석")
+        case "대구 삼성 라이온즈 파크":
+            stadiumInfo(teamImages: ["삼성"], stadiumName: "대구 삼성 라이온즈 파크", teams: "삼성 라이온즈", address: "대구광역시 수성구 야구전설로 1 (연호동)", capacity: "24,000석")
+        case "대전 한화생명 이글스파크":
+            stadiumInfo(teamImages: ["한화"], stadiumName: "대전 한화생명 이글스파크", teams: "한화 이글스", address: "대전광역시 중구 대종로 373 (부사동)", capacity: "13,000석")
+        case "사직 야구장":
+            stadiumInfo(teamImages: ["롯데"], stadiumName: "사직 야구장", teams: "롯데 자이언츠", address: "부산광역시 동래구 사직로 45 (사직동)", capacity: "22,758석")
+        case "창원 NC 파크":
+            stadiumInfo(teamImages: ["NC"], stadiumName: "창원 NC 파크", teams: "NC 다이노스", address: "경상남도 창원시 마산회원구 삼호로 63 (양덕동)", capacity: "17,891석")
+        case "광주-기아 챔피언스 필드":
+            stadiumInfo(teamImages: ["KIA"], stadiumName: "광주-기아 챔피언스 필드", teams: "기아 타이거즈", address: "광주광역시 북구 서림로 10 (임동)", capacity: "20,500석")
+        case "수원 케이티 위즈 파크":
+            stadiumInfo(teamImages: ["KT"], stadiumName: "수원 케이티 위즈 파크", teams: "KT 위즈", address: "경기도 수원시 장안구 경수대로 893 (조원동)", capacity: "18,700석")
         default:
             Text("")
                 .hidden()
         }
     }
     
-    func selectTeam(){
-        switch team {
-        case "LG","두산":
-            center = .region(MKCoordinateRegion(center: .jamsilMarker, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)))
-            mapheight = 200
-        case "키움":
-            center = .region(MKCoordinateRegion(center: .kiwoomMarker, span: MKCoordinateSpan(latitudeDelta: 0.008, longitudeDelta: 0.008)))
-            mapheight = 300
-        case "SSG":
-            center = .region(MKCoordinateRegion(center: .ssgMarker, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)))
-            mapheight = 300
-        case "삼성":
-            center = .region(MKCoordinateRegion(center: .samsungMarker, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)))
-            mapheight = 300
-        case "한화":
-            center = .region(MKCoordinateRegion(center: .hanhwaMarker, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)))
-            mapheight = 300
-        case "롯데":
-            center = .region(MKCoordinateRegion(center: .lotteMarker, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)))
-            mapheight = 300
-        case "NC":
-            center = .region(MKCoordinateRegion(center: .ncMarker, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)))
-            mapheight = 300
-        case "기아":
-            center = .region(MKCoordinateRegion(center: .kiaMarker, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)))
-            mapheight = 300
-        case "KT":
-            center = .region(MKCoordinateRegion(center: .ktMarker, span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)))
-            mapheight = 300
-        default:
-            center = .region(MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: 36.654899, longitude: 127.928812),
-                span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 0.5)))
-            mapheight = 600
+    func stadiumInfo(teamImages: [String], stadiumName: String, teams: String, address: String, capacity: String) -> some View {
+        VStack {
+            Spacer()
+            HStack {
+                Spacer()
+                ForEach(teamImages, id: \.self) { image in
+                    Image(image)
+                        .resizable()
+                        .frame(width: 70, height: 60)
+                    Spacer()
+                }
+            }
+            Spacer()
+            Text(stadiumName)
+                .bold()
+                .font(.system(size: 20))
+            Spacer()
+            Text("사용 구단 : \(teams)")
+            Spacer()
+            Text("주소 : \(address)")
+            Spacer()
+            Text("좌석 규모 : \(capacity)")
+            Spacer()
         }
     }
+    
+    func selectTeam() {
+        if team == "구장을 선택해주세요" {
+            center = .region(MKCoordinateRegion(
+                center: CLLocationCoordinate2D(latitude: 36.654899, longitude: 127.928812),
+                span: MKCoordinateSpan(latitudeDelta: 2, longitudeDelta: 2)
+            ))
+            mapheight = 600
+        } else if let selectedTeam = teamInfo.first(where: { $0.0 == team }) {
+            center = .region(MKCoordinateRegion(
+                center: selectedTeam.1,
+                span: MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+            ))
+            mapheight = 300
+        }
+    }
+
 }
 
 extension CLLocationCoordinate2D {

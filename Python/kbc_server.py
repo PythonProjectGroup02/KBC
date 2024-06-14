@@ -29,7 +29,7 @@ def teamRanking() :
     response = {}
 
     for teamName in team_name_arr :
-        team_df = pd.read_csv(f'./Python/Data/rank/{teamName}_rank.csv')
+        team_df = pd.read_csv(f'./Data/rank/{teamName}_rank.csv')
         team_df = team_df.iloc[:, :3]
         team_df.columns = ['date', 'team', 'rank']
         team_df.date = pd.to_datetime(team_df.date)
@@ -50,7 +50,7 @@ def dayRanking() :
     # 크롤링
     crawling_kbo_dayRanking()
 
-    df = pd.read_csv('./Python/Data/rank/day_rank.csv')
+    df = pd.read_csv('./Data/rank/day_rank.csv')
     df.columns = ['rank', 'team', 'totalgames', 'win', 'loss', 'draw', 'winningrate', 'gamesbehind', 'tengamesrecord', 'streak', 'home', 'away', 'date']
 
     result = []
@@ -101,7 +101,7 @@ def crawling_kbo_dayRanking() :
 
         result.append(result_dict)
     
-    pd.DataFrame(result).to_csv('./Python/Data/rank/day_rank.csv', index=None)
+    pd.DataFrame(result).to_csv('./Data/rank/day_rank.csv', index=None)
 
 @app.route('/searchmatch')
 def searchteam():
@@ -112,7 +112,7 @@ def searchteam():
     match myteam :
         case '롯데':
             teamschedule = pd.read_csv('./schedule/lotte.csv')
-        case '기아':
+        case 'KIA':
             teamschedule = pd.read_csv('./schedule/kia.csv')
         case '한화':
             teamschedule = pd.read_csv('./schedule/hh.csv')

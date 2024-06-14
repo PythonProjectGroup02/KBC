@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MainPage: View {
-    @State var myTeam = "한화"
+    @State var myTeam = "KIA"
     
     @State var selectmonth = 0;
     @State var selectday = 0;
@@ -20,31 +20,56 @@ struct MainPage: View {
     var day1 =  Array(11...30)
     var day2 = Array(1...31)
     
-   
-    
     var body: some View {
         VStack(content: {
             CustomNavigationBar(titleName: "KBC", backButton: false)
             Spacer()
             HStack(content: {
+                Spacer()
                 Picker("", selection: $selectmonth, content: {
                     ForEach(month, id: \.self) {
                         Text("\($0)")
                     }
                 })
+                .frame(width: 100, height: 10)
                 .onChange(of: selectmonth, {
                     findSchedule(month: selectmonth, day: selectday, team: myTeam)
                 })
+                .pickerStyle(MenuPickerStyle())
+                .padding()
+                .background(Color.white)
+                .cornerRadius(8)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray, lineWidth: 2)
+                )
+                .shadow(color: Color.gray.opacity(0.4), radius: 4, x: 0, y: 2)
+                
+                Spacer()
                 
                 if selectmonth == 6{
                     Picker("", selection: $selectday, content: {
                         ForEach(day1, id: \.self) {
                             Text("\($0)")
+                                .foregroundColor(.black)
                         }
                     })
                     .onChange(of: selectday, {
                         findSchedule(month: selectmonth, day: selectday, team: myTeam)
                     })
+                    .frame(width: 100, height: 10)
+                    .onChange(of: selectmonth, {
+                        findSchedule(month: selectmonth, day: selectday, team: myTeam)
+                    })
+                    .pickerStyle(MenuPickerStyle())
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray, lineWidth: 2)
+                    )
+                    .shadow(color: Color.gray.opacity(0.4), radius: 4, x: 0, y: 2)
                 }else{
                     Picker("", selection: $selectday, content: {
                         ForEach(day2, id: \.self) {
@@ -54,8 +79,23 @@ struct MainPage: View {
                     .onChange(of: selectday, {
                         findSchedule(month: selectmonth, day: selectday, team: myTeam)
                     })
+                    .frame(width: 100, height: 10)
+                    .onChange(of: selectmonth, {
+                        findSchedule(month: selectmonth, day: selectday, team: myTeam)
+                    })
+                    .pickerStyle(MenuPickerStyle())
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(8)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(Color.gray, lineWidth: 2)
+                    )
+                    .shadow(color: Color.gray.opacity(0.4), radius: 4, x: 0, y: 2)
                 }
+                Spacer()
             })
+            
             matchView
             
             Spacer()
@@ -67,7 +107,7 @@ struct MainPage: View {
             selectmonth = components.month ?? 6
             selectday = components.day ?? 1
             findSchedule(month: selectmonth, day: selectday, team: myTeam)
-            //searchMyTeam()
+            searchMyTeam()
         }
     }
     
@@ -130,13 +170,13 @@ struct MainPage: View {
                             .frame(width: 120, height: 120)
                         Spacer()
                     })
-                    .padding(20)
+                    .padding([.bottom,.top],50)
                     Text(stadiumText)
                         .padding(10)
-                    Divider()
-                        .padding(20)
-                    Text("예측 관중수")
-                        .padding(10)
+                    //                    Divider()
+                    //                        .padding(20)
+                    //                    Text("예측 관중수")
+                    //                        .padding(10)
                 })
             }else{
                 Text("경기가 없습니다.")

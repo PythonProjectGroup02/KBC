@@ -106,8 +106,12 @@ struct MyTeamPage: View {
                 Spacer()
             })
             .onAppear{
+
+                searchMyTeam()
+
                 print("apper 실행")
                 //searchMyTeam()
+
                 teamInfo()
             }
         }) // NavigationView
