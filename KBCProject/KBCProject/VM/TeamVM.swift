@@ -76,7 +76,7 @@ class TeamVM: ObservableObject {
     func updateDB(team: String, id: Int32) -> Bool{
         var stmt: OpaquePointer?
         let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
-        let queryString = "UPDATE teams SET tid = ?, tteam = ? WHERE tid = ?"
+        let queryString = "UPDATE teams SET tteam = ? WHERE tid = ?"
         
         sqlite3_prepare(db, queryString, -1, &stmt, nil)
         
