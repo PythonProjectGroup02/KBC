@@ -12,6 +12,7 @@ struct LineChartView: View {
     
     @Binding var monthRank: ResponseData
     @State var isAnimation: Bool = false
+    @State var teamColor: [TeamColor] = []
     
     var body: some View {
         VStack(content: {
@@ -101,8 +102,54 @@ struct LineChartView: View {
                     monthRank = monthRank
                 })
             })
-
+            
+            // Chart Legend
+            ScrollView(.horizontal, content: {
+                HStack(content: {
+                    ForEach(teamColor, id: \.self, content: { team in
+                        HStack(content: {
+                            Text("")
+                                .border(team.teamColor)
+                                .frame(width: 10, height: 10)
+                                .background(team.teamColor)
+                            Text(team.team)
+                        })
+                        .frame(width: 60)
+                    })
+                })
+                .frame(height: 60)
+                .padding()
+                
+            })
+            
+        }) // VStack
+        .onAppear(perform: {
+            addTeamColor()
         })
+    }
+    
+    func addTeamColor() {
+        teamColor.append(TeamColor(team: "KIA", teamColor: Color.black))
+        teamColor.append(TeamColor(team: "KT", teamColor: Color.gray))
+        teamColor.append(TeamColor(team: "LG", teamColor: Color.mint))
+        teamColor.append(TeamColor(team: "NC", teamColor: Color.purple))
+        teamColor.append(TeamColor(team: "SSG", teamColor: Color.brown))
+        teamColor.append(TeamColor(team: "두산", teamColor: Color.orange))
+        teamColor.append(TeamColor(team: "롯데", teamColor: Color.green))
+        teamColor.append(TeamColor(team: "삼성", teamColor: Color.cyan))
+        teamColor.append(TeamColor(team: "키움", teamColor: Color.red))
+        teamColor.append(TeamColor(team: "한화", teamColor: Color.yellow))
+    }
+}
+
+struct TeamColor {
+    let team: String
+    let teamColor: Color
+}
+
+extension TeamColor: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(team)
     }
 }
 
