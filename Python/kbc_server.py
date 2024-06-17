@@ -215,12 +215,16 @@ def predict1():
     else:
         hlRank = None
 
+    print(f'1번 : {holiday}')
+    print(f'2번 : {hmlRank}')
+    print(f'3번 : {hlRank}')
+    print(f'4번 : {daybyday}')
 
     # 예측 모델 실행
     clf = joblib.load("./Data/predict_model/svm_kiwoom.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -285,7 +289,7 @@ def predict2():
     clf = joblib.load("./Data/predict_model/svm_dusan.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -350,7 +354,7 @@ def predict3():
     clf = joblib.load("./Data/predict_model/svm_hanwha.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -415,7 +419,7 @@ def predict4():
     clf = joblib.load("./Data/predict_model/svm_lotte.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -480,7 +484,7 @@ def predict5():
     clf = joblib.load("./Data/predict_model/svm_samsung.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -545,7 +549,7 @@ def predict6():
     clf = joblib.load("./Data/predict_model/svm_kt.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -610,7 +614,7 @@ def predict7():
     clf = joblib.load("./Data/predict_model/svm_lg.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -675,7 +679,7 @@ def predict8():
     clf = joblib.load("./Data/predict_model/svm_nc.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -740,7 +744,7 @@ def predict9():
     clf = joblib.load("./Data/predict_model/svm_ssg.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
@@ -800,12 +804,13 @@ def predict10():
     else:
         hlRank = None
 
+    
 
     # 예측 모델 실행
     clf = joblib.load("./Data/predict_model/svm_kia.h5")
     thiss = np.array(
         [
-            [holiday,hmlRank,hlRank,daybyday]
+            [holiday,hmlRank,hlRank]
         ]
     )
     pre = clf.predict(thiss)
