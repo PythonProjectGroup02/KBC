@@ -27,7 +27,6 @@ struct EditMyTeam: View {
                 ForEach(teamname, id: \.self) { team in
                     RadioButtonView(team: team, isSelected: team == self.team, action: {
                         self.team = team
-                        print(team)
                     })
                 }
             }
@@ -59,6 +58,9 @@ struct EditMyTeam: View {
             Spacer()
         }) // VStack
         .navigationBarBackButtonHidden(true)
+        .onAppear(perform: {
+            self.team = TeamVM().queryDB()
+        })
     }
     
 } // EditMyTeam

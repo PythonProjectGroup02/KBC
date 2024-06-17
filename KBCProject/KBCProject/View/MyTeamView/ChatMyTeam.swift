@@ -88,8 +88,6 @@ struct ChatMyTeam: View {
                         // MySQL Insert Action
                         Task {
                             insertAlert = try await ChatVM().insertChatContent(chatting: InsertChat(content: tfText, nickname: tfNickName, team: serachMyTeam()))
-                            
-                            reloadData()
                         }
                     })
                     .frame(width: 80, height: 40)
@@ -100,8 +98,7 @@ struct ChatMyTeam: View {
                     .padding()
                     .alert("확인", isPresented: $insertAlert, actions: {
                         Button("확인", role: .none, action: {
-                            tfText = ""
-                            tfNickName = ""
+                            reloadData()
                         })
                     }, message: {
                         Text("정상적으로 처리되었습니다.")
@@ -128,6 +125,9 @@ struct ChatMyTeam: View {
         Task {
             (stateCode, chatData) = try await chatAPI.selectChatContent(team: serachMyTeam())
         }
+        
+        tfText = ""
+        tfNickName = ""
     }
     
     func checkWord() -> Bool {
