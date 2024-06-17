@@ -142,17 +142,6 @@ struct LineChartView: View {
     }
 }
 
-struct TeamColor {
-    let team: String
-    let teamColor: Color
-}
-
-extension TeamColor: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(team)
-    }
-}
-
 //#Preview {
 //    LineChartView()
 //}

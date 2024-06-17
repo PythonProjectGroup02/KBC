@@ -62,7 +62,6 @@ struct JoinPage: View {
                             primaryButton: .default(Text("예")) {
                                 showContentView = true
                                 let query = TeamVM()
-                                print(team)
                                 if query.insertDB(team: team ?? "") {
                                     showContentView = true
                                 } else {
@@ -85,6 +84,7 @@ struct JoinPage: View {
             let exsistTeam = vmQuery.queryDB()
             
             if !(exsistTeam == "") {
+                
                 showContentView = true
             }
         })
