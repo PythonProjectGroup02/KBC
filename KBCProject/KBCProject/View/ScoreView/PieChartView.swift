@@ -23,7 +23,10 @@ struct PieChartView: View {
                 SectorMark(angle: .value("value", pie.value), innerRadius: .ratio(0.618), outerRadius: selectedType?.name == pie.name ? 185 : 170, angularInset: 1.7)
                     .foregroundStyle(by: .value("", pie.name))
                     .annotation(position: .overlay, content: {
-                        Text("\(pie.value)")
+                        Text("\(String(format: "%.2f", Double(pie.value) / Double(team.totalgames) * 100))%")
+                            .font(.system(size: selectedType?.name == pie.name ? 25 : 15))
+                            .frame(width: 90)
+                            .animation(.bouncy, value: selectedType?.name == pie.name)
                     })
                     .opacity(selectedType?.name == pie.name ? 1 : 0.5)
             })

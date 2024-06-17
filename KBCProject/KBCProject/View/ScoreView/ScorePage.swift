@@ -75,7 +75,7 @@ struct ScorePage: View {
         let query = RankAPI()
         let url = "http://127.0.0.1:5000/monthRank?year=\(year)&month=\(String(format: "%02d", month))"
         Task {
-            monthRank = try await query.loadJsonData(url: url)
+            monthRank = try await query.loadMonthRank(url: url)
         }
     }
     

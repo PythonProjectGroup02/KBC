@@ -44,7 +44,7 @@ class TeamVM: ObservableObject {
             let team = String(cString: sqlite3_column_text(stmt, 1))
             
             teamList.append(Team(id: id, team: team))
-            print(team)
+//            print(team)
         }
         
         return teamList[0].team

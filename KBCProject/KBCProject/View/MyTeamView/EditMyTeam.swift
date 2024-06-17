@@ -27,7 +27,6 @@ struct EditMyTeam: View {
                 ForEach(teamname, id: \.self) { team in
                     RadioButtonView(team: team, isSelected: team == self.team, action: {
                         self.team = team
-                        print(team)
                     })
                 }
             }
@@ -54,11 +53,14 @@ struct EditMyTeam: View {
                 })
                 Button("취소", role: .cancel, action: {})
             }, message: {
-                Text("Message 입력")
+                Text("팀을 수정하시겠습니까?")
             })
             Spacer()
         }) // VStack
         .navigationBarBackButtonHidden(true)
+        .onAppear(perform: {
+            self.team = TeamVM().queryDB()
+        })
     }
     
 } // EditMyTeam

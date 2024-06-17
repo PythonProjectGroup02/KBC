@@ -31,6 +31,7 @@ struct DayRankModel: Codable {
     let date: String
 }
 
+// JSON Data 형식
 struct ResponseData: Codable {
     let 두산: [MonthRank]
     let 롯데: [MonthRank]
@@ -51,6 +52,13 @@ struct PieModel {
     let color: Color
 }
 
+// LineChart Legend Model
+struct TeamColor {
+    let team: String
+    let teamColor: Color
+}
+
+
 // ------ extensions ------
 extension PieModel: Hashable {
     func hash(into hasher: inout Hasher) {
@@ -62,8 +70,15 @@ extension MonthRank: Hashable {
         hasher.combine(date)
     }
 }
+
 extension DayRankModel: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(rank)
+    }
+}
+
+extension TeamColor: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(team)
     }
 }

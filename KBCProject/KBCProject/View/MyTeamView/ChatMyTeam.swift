@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChatMyTeam: View {
+    @FocusState var isTextFieldFocused: Bool
+    
     @State var btnAni: Bool = false
     
     @State var chatData: [ChatModel] = []
@@ -17,6 +19,7 @@ struct ChatMyTeam: View {
     @State var tfText: String = ""
     
     @State var insertAlert: Bool = false
+    @State var errorAlert: Bool = false
     
     var body: some View {
         VStack(content: {
@@ -58,11 +61,11 @@ struct ChatMyTeam: View {
                                 .font(.title3)
                             Spacer()
                         })
+                        
                         TextField("", text: $tfNickName)
                         .frame(width: (UIScreen.main.bounds.width / 3) * 2)
-    //                        .border(Color.black)
                             .textFieldStyle(.roundedBorder)
-//                            .padding()
+                            .focused($isTextFieldFocused)
                     })
                     .frame(width: UIScreen.main.bounds.width / 3 * 2)
                     .padding()
@@ -73,23 +76,24 @@ struct ChatMyTeam: View {
                                 .font(.title3)
                             Spacer()
                         })
+                        
                         TextField("", text: $tfText)
                         .frame(width: (UIScreen.main.bounds.width / 3) * 2)
                             .textFieldStyle(.roundedBorder)
+                            .focused($isTextFieldFocused)
                     })
                     .frame(width: UIScreen.main.bounds.width / 3 * 2)
                     .padding()
                     
                     Button("전송", action: {
+                        isTextFieldFocused = false
                         if checkWord() {
+                            errorAlert = true
                             return
                         }
-                        
                         // MySQL Insert Action
                         Task {
                             insertAlert = try await ChatVM().insertChatContent(chatting: InsertChat(content: tfText, nickname: tfNickName, team: serachMyTeam()))
-                            
-                            reloadData()
                         }
                     })
                     .frame(width: 80, height: 40)
@@ -100,11 +104,15 @@ struct ChatMyTeam: View {
                     .padding()
                     .alert("확인", isPresented: $insertAlert, actions: {
                         Button("확인", role: .none, action: {
-                            tfText = ""
-                            tfNickName = ""
+                            reloadData()
                         })
                     }, message: {
                         Text("정상적으로 처리되었습니다.")
+                    })
+                    .alert("주의!", isPresented: $errorAlert, actions: {
+                        Button("확인", role: .none, action: {})
+                    }, message: {
+                        Text("빈칸을 확인해주세요.")
                     })
                     
                 }) // 응원 VStack
@@ -128,6 +136,9 @@ struct ChatMyTeam: View {
         Task {
             (stateCode, chatData) = try await chatAPI.selectChatContent(team: serachMyTeam())
         }
+        
+        tfText = ""
+        tfNickName = ""
     }
     
     func checkWord() -> Bool {

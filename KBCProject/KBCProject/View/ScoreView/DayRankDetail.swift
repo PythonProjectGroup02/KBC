@@ -54,11 +54,11 @@ struct DayRankDetail: View {
                     
                     HStack(spacing: 17, content: {
                         VStack(spacing: 8, content: {
-                            Text("게임차")
+                            Text("승률")
                                 .font(.title)
                                 .bold()
                             
-                            Text(String(format: "%.2f", team.gamesbehind))
+                            Text(String(format: "%.2f", team.winningrate))
                                 .font(.system(size: 20))
                         })
                         
@@ -157,6 +157,6 @@ struct DayRankDetail: View {
 
 }
 
-#Preview {
-    DayRankDetail(team: DayRankModel(rank: 1, team: "한화", totalgames: 50, win: 10, loss: 39, draw: 1, winningrate: 0.222, gamesbehind: 30.2, tengamesrecord: "20승30패1무", streak: "2승", home: "20-123-51", away: "23-123-16", date: "2123123"))
-}
+//#Preview {
+//    DayRankDetail(team: DayRankModel(rank: 1, team: "한화", totalgames: 50, win: 10, loss: 39, draw: 1, winningrate: 0.222, gamesbehind: 30.2, tengamesrecord: "20승30패1무", streak: "2승", home: "20-123-51", away: "23-123-16", date: "2123123"))
+//}

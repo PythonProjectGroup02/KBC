@@ -19,6 +19,28 @@ struct RankPage: View {
             CustomNavigationBar(titleName: "KBC", backButton: true)
             
             List(content: {
+                HStack(content: {
+                    Text("종류")
+                        .frame(width: 60, alignment: .trailing)
+                    
+                    Text("순위")
+                        .font(.title3)
+                        .frame(width: 60, alignment: .trailing)
+                        .padding(.leading, 30)
+                    
+                    Text("팀명")
+                        .font(.title3)
+                        .frame(width: 50)
+                        .padding(.leading)
+                    
+                    Text("게임차")
+                        .font(.title3)
+                        .frame(width: 60, alignment: .trailing)
+                    
+                    Spacer()
+                })
+                .padding([.bottom, .top])
+                
                 ForEach(dayRanking, id: \.team, content: { rank in
                     NavigationLink(destination: DayRankDetail(team: rank), label: {
                         RankCell(model: rank)
@@ -54,7 +76,17 @@ struct RankCell: View {
                 .padding()
             
             Text("\(model.rank)위")
+                .font(.title3)
+                .frame(width: 40, alignment: .trailing)
+            
             Text("\(model.team)")
+                .font(.title3)
+                .frame(width: 60, alignment: .trailing)
+            
+            Text(String(format: "%.2f", model.gamesbehind))
+                .font(.title3)
+                .frame(width: 60, alignment: .trailing)
+
 
         })
         .frame(height: 60)

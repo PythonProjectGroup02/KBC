@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MyTeamPage: View {
-    @State var myTeam: String = "삼성"
+    @State var myTeam: String = ""
     @State var teamhomepage: String = "https://www.naver.com"
     @State var ticketpage: String = "https://www.naver.com"
     @State var mdpage: String = "https://www.naver.com"
@@ -140,7 +140,7 @@ struct MyTeamPage: View {
             teamhomepage = "https://www.ssglanders.com/main"
             ticketpage = "https://www.ticketlink.co.kr/sports/baseball/476#reservation"
             mdpage = "https://store.ssglanders.com/"
-        case "기아" :
+        case "KIA" :
             teamhomepage = "https://tigers.co.kr/"
             ticketpage = "https://www.ticketlink.co.kr/sports/baseball/63#reservation"
             mdpage = "https://teamstore.tigers.co.kr/"
