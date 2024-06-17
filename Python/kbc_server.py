@@ -11,7 +11,10 @@ import json
 import pymysql
 import pandas as pd
 import time
-from sqlalchemy import create_engine
+import joblib
+import numpy as np
+import holidays
+import datetime
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False # utf8
@@ -29,7 +32,7 @@ def teamRanking() :
     response = {}
 
     for teamName in team_name_arr :
-        team_df = pd.read_csv(f'./Data/rank/{teamName}_rank.csv')
+        team_df = pd.read_csv(f'../Python/Data/rank/{teamName}_rank.csv')
         team_df = team_df.iloc[:, :3]
         team_df.columns = ['date', 'team', 'rank']
         team_df.date = pd.to_datetime(team_df.date)
@@ -50,7 +53,7 @@ def dayRanking() :
     # 크롤링
     crawling_kbo_dayRanking()
 
-    df = pd.read_csv('./Data/rank/day_rank.csv')
+    df = pd.read_csv('../Python/Data/rank/day_rank.csv')
     df.columns = ['rank', 'team', 'totalgames', 'win', 'loss', 'draw', 'winningrate', 'gamesbehind', 'tengamesrecord', 'streak', 'home', 'away', 'date']
 
     result = []
@@ -101,7 +104,7 @@ def crawling_kbo_dayRanking() :
 
         result.append(result_dict)
     
-    pd.DataFrame(result).to_csv('./Data/rank/day_rank.csv', index=None)
+    pd.DataFrame(result).to_csv('../Python/Data/rank/day_rank.csv', index=None)
 
 @app.route('/searchmatch')
 def searchteam():
@@ -112,7 +115,7 @@ def searchteam():
     match myteam :
         case '롯데':
             teamschedule = pd.read_csv('./schedule/lotte.csv')
-        case 'KIA':
+        case '기아':
             teamschedule = pd.read_csv('./schedule/kia.csv')
         case '한화':
             teamschedule = pd.read_csv('./schedule/hh.csv')
@@ -123,7 +126,7 @@ def searchteam():
         case 'LG':
             teamschedule = pd.read_csv('./schedule/lg.csv')
         case 'NC':
-            teamschedule = pd.read_csv('./Python/schedule/nc.csv')
+            teamschedule = pd.read_csv('./schedule/nc.csv')
         case 'KT':
             teamschedule = pd.read_csv('./schedule/kt.csv')
         case 'SSG':
@@ -157,87 +160,662 @@ def searchteam():
 
     return json.dumps([response], ensure_ascii=False).encode('utf-8')
 
-@app.route('/cheerContent')
-def cheerSelectMySQL() :
-    # engine = create_engine("mysql+pymysql://root:qwer1234@127.0.0.1:3306/python")
-    # conn = engine.connect()
+# ---- 예측 ----
 
-    # data = pd.read_sql_table('cheer', conn)
-    # data.cdate = data.cdate.dt.strftime("%Y-%m-%d %H:%M:%S")
+# kiwoom
+@app.route("/kiwoom")
+def predict1():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
 
-    # response = []
-    # for i in range(len(data)) :
-    #     response.append(data.loc[i, :].to_dict())
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
 
-    team = request.args.get('team')
 
-    conn = pymysql.connect(
-        host='127.0.0.1',
-        user='root',
-        password='qwer1234',
-        database='python',
-        charset='utf8'
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == '키움'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+    print(f'1번 : {holiday}')
+    print(f'2번 : {hmlRank}')
+    print(f'3번 : {hlRank}')
+    print(f'4번 : {daybyday}')
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_kiwoom.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
     )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
 
-    # Connection으로부터 Cursor 생성
-    curs = conn.cursor()
+# dusan
+@app.route("/dusan")
+def predict2():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
 
-    # SQL 문장
-    sql = "select * from cheer where cteam = %s order by cdate desc"
-    curs.execute(sql, team)
-    rows = curs.fetchall()
-    conn.close()
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
 
-    response = []
-    for row in rows :
-        result_dict = {
-            "id" : row[0],
-            "content" : row[1],
-            "date" : row[2].strftime("%y-%m-%d %H:%M:%S"),
-            "nickname" : row[3],
-            "team" : row[4]
-        }
-        response.append(result_dict)
 
-    state = 1
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == '두산'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
 
-    if len(response) == 0 :
-        state = 0
 
-    result = {
-        'state' : state,
-        'data' : response
-    }
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
 
-    return json.dumps(result, ensure_ascii=False).encode('utf-8')
 
-@app.route("/insertCheer")
-def cheerInsertMySQL() :
-    cteam = request.args.get('myteam')
-    ctext = request.args.get('text')
-    cname = request.args.get('nickname')
 
-    conn = pymysql.connect(
-        host='127.0.0.1',
-        user='root',
-        password='qwer1234',
-        database='python',
-        charset='utf8'
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_dusan.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
     )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
 
-    # Connection으로부터 Cursor 생성
-    curs = conn.cursor()
+# hanwha
+@app.route("/hanwha")
+def predict3():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
 
-    try :
-        # SQL 문장
-        sql = "insert into cheer (ctext, cdate, cname, cteam) values (%s, now(), %s, %s)"
-        curs.execute(sql, (ctext, cname, cteam))
-        conn.commit()
-        conn.close()
-        return json.dumps({"result" : "success"}, ensure_ascii=False).encode('utf-8')
-    except :
-        conn.close()
-        return json.dumps({"result" : "error"}, ensure_ascii=False).encode('utf-8')
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
+
+
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == '한화'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_hanwha.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
+    )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
+
+# lotte
+@app.route("/lotte")
+def predict4():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
+
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
+
+
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == '롯데'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_lotte.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
+    )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
+
+# samsung
+@app.route("/samsung")
+def predict5():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
+
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
+
+
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == '삼성'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_samsung.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
+    )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
+
+# kt
+@app.route("/kt")
+def predict6():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
+
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
+
+
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == 'KT'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_kt.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
+    )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
+
+# lg
+@app.route("/lg")
+def predict7():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
+
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
+
+
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == 'LG'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_lg.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
+    )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
+
+# nc
+@app.route("/nc")
+def predict8():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
+
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
+
+
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == 'NC'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_nc.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
+    )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
+
+# ssg
+@app.route("/ssg")
+def predict9():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
+
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
+
+
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == 'SSG'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_ssg.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
+    )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
+
+# kia
+@app.route("/kia")
+def predict10():
+    # 데이터 받기
+    month=int(request.args.get("월"))
+    day=int(request.args.get("일"))
+    # rank=int(request.args.get("순위"))
+    away=request.args.get("원정팀")
+
+    date = datetime.date(2024, month, day)
+    dateWeek = date.weekday()
+
+
+    # df = pd.read_csv(f"./Data/rank/{home}_rank.csv")
+    df = pd.read_csv("./Data/rank/day_rank.csv")
+    rank = df[df.팀명 == 'KIA'].순위.values[0]
+    # away_rank = df[df.팀명 == away].순위.values[0]
+
+
+    # 요일에 따라 조건문 작성
+    if dateWeek in (4,5,6):
+        daybyday = 1
+    elif dateWeek in (0,1,2,3):
+        daybyday = 0
+    else:
+        daybyday = None
+
+
+
+    # 한국 공휴일 데이터
+    korean_holidays = holidays.KR()
+    # 휴일 유무
+    holiday = 1 if date in korean_holidays else 0
+
+
+    # 상위권 중위권 하위권 구분
+    if 1 <= rank <= 3:
+        hmlRank = 0
+    elif 4 <= rank <= 6:
+        hmlRank = 1
+    elif 7 <= rank <= 10:
+        hmlRank = 2
+    else:
+        hmlRank = None
+
+    # 상위권 하위권 구분
+    if 1 <= rank <= 5:
+        hlRank = 0
+    elif 6 <= rank <= 10:
+        hlRank = 1
+    else:
+        hlRank = None
+
+    
+
+    # 예측 모델 실행
+    clf = joblib.load("./Data/predict_model/svm_kia.h5")
+    thiss = np.array(
+        [
+            [holiday,hmlRank,hlRank]
+        ]
+    )
+    pre = clf.predict(thiss)
+    print(pre)
+    return jsonify([{'result':pre[0]}])
 
 if __name__ == '__main__' :
     app.run(host='127.0.0.1', port=5000, debug=True)

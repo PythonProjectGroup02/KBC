@@ -38,6 +38,7 @@
 		933B87B62C18078600AAC60D /* SchesduleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87B52C18078600AAC60D /* SchesduleVM.swift */; };
 		933B87B82C1807B300AAC60D /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87B72C1807B300AAC60D /* ScheduleModel.swift */; };
 		935BD3642C19768D00BE23E5 /* MyTeamPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935BD3632C19768D00BE23E5 /* MyTeamPage.swift */; };
+		937806372C1FD0E00050F90D /* CrowdVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937806362C1FD0E00050F90D /* CrowdVM.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,7 @@
 		933B87B52C18078600AAC60D /* SchesduleVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchesduleVM.swift; sourceTree = "<group>"; };
 		933B87B72C1807B300AAC60D /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
 		935BD3632C19768D00BE23E5 /* MyTeamPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyTeamPage.swift; sourceTree = "<group>"; };
+		937806362C1FD0E00050F90D /* CrowdVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrowdVM.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 				933B87B52C18078600AAC60D /* SchesduleVM.swift */,
 				5DDD9C1F2C1979770074D638 /* TeamVM.swift */,
 				2BCF563A2C1B01010030F047 /* ChatVM.swift */,
+				937806362C1FD0E00050F90D /* CrowdVM.swift */,
 			);
 			path = VM;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				933B87B62C18078600AAC60D /* SchesduleVM.swift in Sources */,
 				2BCF56352C1A8AC40030F047 /* EditMyTeam.swift in Sources */,
 				933B87A32C1295E500AAC60D /* JoinPage.swift in Sources */,
+				937806372C1FD0E00050F90D /* CrowdVM.swift in Sources */,
 				933B87782C1056D000AAC60D /* ContentView.swift in Sources */,
 				2B07B6032C16CEB700D61457 /* ScoreNavigation.swift in Sources */,
 				2BFBB9D72C19484F00E6308F /* PieChartView.swift in Sources */,
