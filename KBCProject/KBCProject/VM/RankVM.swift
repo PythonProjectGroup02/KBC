@@ -8,7 +8,7 @@
 import Foundation
 
 struct RankAPI {
-    func loadJsonData(url: String) async throws -> ResponseData {
+    func loadMonthRank(url: String) async throws -> ResponseData {
         print("RankAPI - loadJsonData")
         let (data, _) = try await URLSession.shared.data(from: URL(string: url)!)
         let monthRank = try JSONDecoder().decode(ResponseData.self, from: data)

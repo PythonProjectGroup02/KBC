@@ -13,6 +13,7 @@
 		2B07B5FF2C16A74A00D61457 /* RankPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B5FE2C16A74A00D61457 /* RankPage.swift */; };
 		2B07B6012C16C24000D61457 /* DayRankDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B6002C16C24000D61457 /* DayRankDetail.swift */; };
 		2B07B6032C16CEB700D61457 /* ScoreNavigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B07B6022C16CEB700D61457 /* ScoreNavigation.swift */; };
+		2B3350832C20031E0053C023 /* FirstSelectTeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3350822C20031E0053C023 /* FirstSelectTeam.swift */; };
 		2B6B42442C19B45900B0DA37 /* CustomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6B42432C19B45900B0DA37 /* CustomTabbar.swift */; };
 		2B8F8DC22C181DF400D1AA27 /* StartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F8DC12C181DF400D1AA27 /* StartView.swift */; };
 		2B8F8DC42C182A2800D1AA27 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8F8DC32C182A2800D1AA27 /* SplashView.swift */; };
@@ -33,7 +34,6 @@
 		933B878A2C1058BE00AAC60D /* KBO Dia Gothic_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 933B87872C1058BE00AAC60D /* KBO Dia Gothic_light.otf */; };
 		933B87912C12957900AAC60D /* ScorePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87902C12957900AAC60D /* ScorePage.swift */; };
 		933B87962C12959400AAC60D /* MapPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87952C12959400AAC60D /* MapPage.swift */; };
-		933B87A32C1295E500AAC60D /* JoinPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87A22C1295E500AAC60D /* JoinPage.swift */; };
 		933B87A52C1295FC00AAC60D /* MainPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87A42C1295FC00AAC60D /* MainPage.swift */; };
 		933B87B62C18078600AAC60D /* SchesduleVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87B52C18078600AAC60D /* SchesduleVM.swift */; };
 		933B87B82C1807B300AAC60D /* ScheduleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933B87B72C1807B300AAC60D /* ScheduleModel.swift */; };
@@ -48,6 +48,7 @@
 		2B07B5FE2C16A74A00D61457 /* RankPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankPage.swift; sourceTree = "<group>"; };
 		2B07B6002C16C24000D61457 /* DayRankDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRankDetail.swift; sourceTree = "<group>"; };
 		2B07B6022C16CEB700D61457 /* ScoreNavigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreNavigation.swift; sourceTree = "<group>"; };
+		2B3350822C20031E0053C023 /* FirstSelectTeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSelectTeam.swift; sourceTree = "<group>"; };
 		2B6B42432C19B45900B0DA37 /* CustomTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbar.swift; sourceTree = "<group>"; };
 		2B8F8DC12C181DF400D1AA27 /* StartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartView.swift; sourceTree = "<group>"; };
 		2B8F8DC32C182A2800D1AA27 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -70,7 +71,6 @@
 		933B87872C1058BE00AAC60D /* KBO Dia Gothic_light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "KBO Dia Gothic_light.otf"; sourceTree = "<group>"; };
 		933B87902C12957900AAC60D /* ScorePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePage.swift; sourceTree = "<group>"; };
 		933B87952C12959400AAC60D /* MapPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapPage.swift; sourceTree = "<group>"; };
-		933B87A22C1295E500AAC60D /* JoinPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinPage.swift; sourceTree = "<group>"; };
 		933B87A42C1295FC00AAC60D /* MainPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPage.swift; sourceTree = "<group>"; };
 		933B87B52C18078600AAC60D /* SchesduleVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchesduleVM.swift; sourceTree = "<group>"; };
 		933B87B72C1807B300AAC60D /* ScheduleModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleModel.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 		933B879A2C1295A700AAC60D /* LoginView */ = {
 			isa = PBXGroup;
 			children = (
-				933B87A22C1295E500AAC60D /* JoinPage.swift */,
+				2B3350822C20031E0053C023 /* FirstSelectTeam.swift */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -318,13 +318,13 @@
 				2BFBB9D92C1964A500E6308F /* CustomNavigationBar.swift in Sources */,
 				933B87B62C18078600AAC60D /* SchesduleVM.swift in Sources */,
 				2BCF56352C1A8AC40030F047 /* EditMyTeam.swift in Sources */,
-				933B87A32C1295E500AAC60D /* JoinPage.swift in Sources */,
 				937806372C1FD0E00050F90D /* CrowdVM.swift in Sources */,
 				933B87782C1056D000AAC60D /* ContentView.swift in Sources */,
 				2B07B6032C16CEB700D61457 /* ScoreNavigation.swift in Sources */,
 				2BFBB9D72C19484F00E6308F /* PieChartView.swift in Sources */,
 				2B07B5FB2C16A4C100D61457 /* RankModel.swift in Sources */,
 				2BCF563B2C1B01010030F047 /* ChatVM.swift in Sources */,
+				2B3350832C20031E0053C023 /* FirstSelectTeam.swift in Sources */,
 				2B8F8DC22C181DF400D1AA27 /* StartView.swift in Sources */,
 				2B0470A22C1C178B0022DA8D /* ChatModel.swift in Sources */,
 				933B87912C12957900AAC60D /* ScorePage.swift in Sources */,

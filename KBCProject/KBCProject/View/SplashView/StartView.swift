@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct StartView: View {
+    
     @State var showMainView: Bool = false
+    @State var showContentView: Bool = false
     var body: some View {
         ZStack {
             if showMainView {
-                // 메인 콘텐츠나 이후의 뷰들을 여기에 작성합니다.
-                JoinPage()
-            } else {
+                if showContentView {
+                    ContentView()
+                }
+                else {
+                    FirstSelectTeam()
+                }
+            }
+            else {
                 SplashView()
                     .onAppear {
                         DispatchQueue.main.asyncAfter(deadline: .now() + 3.2) {
@@ -25,6 +32,16 @@ struct StartView: View {
                     }
             }
         }
+        .onAppear(perform: {
+            let vmQuery = TeamVM()
+            let exsistTeam = vmQuery.queryDB()
+            
+            // 이미 선택한 팀이 있다면
+            if !(exsistTeam == "") {
+                // 바로 ContentView로 이동
+                showContentView = true
+            }
+        })
     }
 }
 

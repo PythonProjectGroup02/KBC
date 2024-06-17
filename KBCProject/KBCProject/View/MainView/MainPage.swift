@@ -102,17 +102,19 @@ struct MainPage: View {
             })
             
             matchView
+                .frame(height: 400)
             
             Spacer()
         })
         .onAppear{
+            searchMyTeam()
             let today = Date()
             let calendar = Calendar.current
             let components = calendar.dateComponents([.month, .day], from: today)
             selectmonth = components.month ?? 6
             selectday = components.day ?? 1
+            print(selectmonth, selectday)
             findSchedule(month: selectmonth, day: selectday, team: myTeam)
-            searchMyTeam()
         }
     }
     
@@ -125,39 +127,14 @@ struct MainPage: View {
         let query = ScheduleVM()
         let url = "http://127.0.0.1:5000/searchmatch?myteam=\(team)&month=\(month)&day=\(day)"
         Task {
-            model = try await query.printSchedule(url: url)
+            self.model = try await query.printSchedule(url: url)
             findStadium(stadium: model!.stadium)
         }
     }
     
     func crowdpredict(myteam:String,month:Int,day:Int,away:String){
-        var teamname = ""
-        switch myteam{
-        case "롯데" :
-            teamname = "lotte"
-        case "KIA" :
-            teamname = "kia"
-        case "두산":
-            teamname = "dusan"
-        case "KT":
-            teamname = "kt"
-        case "SSG":
-            teamname = "ssg"
-        case "LG":
-            teamname = "lg"
-        case "키움":
-            teamname = "kiwoom"
-        case "NC":
-            teamname = "nc"
-        case "삼성":
-            teamname = "samsung"
-        case "한화":
-            teamname = "hanhwa"
-        default :
-            teamname = ""
-        }
         let query = CrowdVM()
-        let url = "http://127.0.0.1:5000/\(teamname)?월=\(month)&일=\(day)&원정팀=\(away)"
+        let url = "http://127.0.0.1:5000/predict?month=\(month)&day=\(day)&away=\(away)&myTeam=\(myteam)"
         Task {
             crowd = try await query.crowdpredict(url: url)
         }
@@ -197,6 +174,7 @@ struct MainPage: View {
                         Spacer()
                         Image("\(model.away)")
                             .resizable()
+                            .scaledToFit()
                             .frame(width: 120,height: 120)
                         Spacer()
                         Text("VS")
@@ -205,14 +183,19 @@ struct MainPage: View {
                         Spacer()
                         Image("\(model.home)")
                             .resizable()
+                            .scaledToFit()
                             .frame(width: 120, height: 120)
                         Spacer()
                     })
-                    .padding([.bottom,.top],50)
+                    .padding(.top,50)
+                    
                     Text(stadiumText)
-                        .padding(10)
+                        .font(.title)
+                        .padding()
+                        
                     Divider()
                         .padding(20)
+                    
                     Button(action: {
                         crowdpredict(myteam: myTeam, month: selectmonth, day: selectday, away: model.away)
                     }, label: {
@@ -225,16 +208,18 @@ struct MainPage: View {
                         
                     })
                     
-                    if !crowd.isEmpty {
-                        Text("관중수는 \(crowd)로 예측됩니다")
-                            .padding(10)
-                        
-                    }
+                    VStack(content: {
+                        if !crowd.isEmpty {
+                            Text("관중수는 \(crowd)으로 예측됩니다.")
+                        }
+                    })
+                    .frame(height: 70)
                     
                 })
-            }else{
+            }
+            else{
                 Text("경기가 없습니다.")
-                    .padding(30)
+                    .font(.largeTitle)
             }
         }
     }
