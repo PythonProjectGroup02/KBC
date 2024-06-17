@@ -17,6 +17,7 @@ struct LineChartView: View {
     
     var body: some View {
         VStack(content: {
+            
             Chart(content: {
                 // 검정색
                 ForEach(monthRank.KIA, id: \.date) { month in
@@ -114,7 +115,7 @@ struct LineChartView: View {
                         }
                     })
             })
-            // Chart의 X축 부분 라벨
+            // 차트의 X축 부분 라벨
             .chartXAxis(content: {
                 AxisMarks(position: .automatic, content: { value in
                     AxisValueLabel {
@@ -131,15 +132,9 @@ struct LineChartView: View {
                 })
             })
             .frame(width: 350, height: 300)
-            //            .onAppear(perform: {
-            //                withAnimation(.easeIn, {
-            //                    monthRank = monthRank
-            //                })
-            //            })
-            
-            // Chart Legend
-            ScrollView(.horizontal, content: {
-                HStack(content: {
+            // 차트 Legend
+            HStack(content: {
+                LazyHGrid(rows: Array(repeating: GridItem(), count: 2), content: {
                     ForEach(teamColor, id: \.self, content: { team in
                         HStack(content: {
                             Text("")
@@ -151,10 +146,9 @@ struct LineChartView: View {
                         .frame(width: 60)
                     })
                 })
-                .frame(height: 60)
-                .padding()
                 
             })
+            .padding()
             
         }) // VStack
         .onAppear(perform: {
