@@ -126,7 +126,7 @@ def searchteam():
         case 'LG':
             teamschedule = pd.read_csv('./schedule/lg.csv')
         case 'NC':
-            teamschedule = pd.read_csv('./Python/schedule/nc.csv')
+            teamschedule = pd.read_csv('./schedule/nc.csv')
         case 'KT':
             teamschedule = pd.read_csv('./schedule/kt.csv')
         case 'SSG':

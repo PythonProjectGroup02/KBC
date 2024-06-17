@@ -15,6 +15,7 @@ struct MainPage: View {
     
     @State var model : ScheduleModel?
     @State var stadiumText = ""
+    @State var crowd = ""
     
     var month = [6,7,8]
     var day1 =  Array(11...30)
@@ -56,10 +57,12 @@ struct MainPage: View {
                     })
                     .onChange(of: selectday, {
                         findSchedule(month: selectmonth, day: selectday, team: myTeam)
+                        crowd = ""
                     })
                     .frame(width: 100, height: 10)
                     .onChange(of: selectmonth, {
                         findSchedule(month: selectmonth, day: selectday, team: myTeam)
+                        crowd = ""
                     })
                     .pickerStyle(MenuPickerStyle())
                     .padding()
@@ -78,10 +81,12 @@ struct MainPage: View {
                     })
                     .onChange(of: selectday, {
                         findSchedule(month: selectmonth, day: selectday, team: myTeam)
+                        crowd = ""
                     })
                     .frame(width: 100, height: 10)
                     .onChange(of: selectmonth, {
                         findSchedule(month: selectmonth, day: selectday, team: myTeam)
+                        crowd = ""
                     })
                     .pickerStyle(MenuPickerStyle())
                     .padding()
@@ -122,6 +127,39 @@ struct MainPage: View {
         Task {
             model = try await query.printSchedule(url: url)
             findStadium(stadium: model!.stadium)
+        }
+    }
+    
+    func crowdpredict(myteam:String,month:Int,day:Int,away:String){
+        var teamname = ""
+        switch myteam{
+        case "롯데" :
+            teamname = "lotte"
+        case "KIA" :
+            teamname = "kia"
+        case "두산":
+            teamname = "dusan"
+        case "KT":
+            teamname = "kt"
+        case "SSG":
+            teamname = "ssg"
+        case "LG":
+            teamname = "lg"
+        case "키움":
+            teamname = "kiwoom"
+        case "NC":
+            teamname = "nc"
+        case "삼성":
+            teamname = "samsung"
+        case "한화":
+            teamname = "hanhwa"
+        default :
+            teamname = ""
+        }
+        let query = CrowdVM()
+        let url = "http://127.0.0.1:5000/\(teamname)?월=\(month)&일=\(day)&원정팀=\(away)"
+        Task {
+            crowd = try await query.crowdpredict(url: url)
         }
     }
     
@@ -173,10 +211,26 @@ struct MainPage: View {
                     .padding([.bottom,.top],50)
                     Text(stadiumText)
                         .padding(10)
-                    //                    Divider()
-                    //                        .padding(20)
-                    //                    Text("예측 관중수")
-                    //                        .padding(10)
+                    Divider()
+                        .padding(20)
+                    Button(action: {
+                        crowdpredict(myteam: myTeam, month: selectmonth, day: selectday, away: model.away)
+                    }, label: {
+                        Text("관중수 예측")
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 300)
+                            .background(Color.blue)
+                            .cornerRadius(8)
+                        
+                    })
+                    
+                    if !crowd.isEmpty {
+                        Text("관중수는 \(crowd)로 예측됩니다")
+                            .padding(10)
+                        
+                    }
+                    
                 })
             }else{
                 Text("경기가 없습니다.")
