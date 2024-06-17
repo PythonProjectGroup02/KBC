@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct JoinPage: View {
-    var teamname = ["LG","두산","키움","SSG","삼성","한화","롯데","NC","기아","KT"]
+    var teamname = ["LG","두산","키움","SSG","삼성","한화","롯데","NC","KIA","KT"]
     @State var team: String? = nil
     @State var showAlert = false
     @State var showConfirmation = false
@@ -19,20 +19,22 @@ struct JoinPage: View {
         if showContentView {
             ContentView()
         } else {
+            Spacer()
             VStack(content: {
+                Spacer()
                 Text("구단을 선택해주세요")
-                    .font(.headline)
-                    
-                    Spacer()
+                    .bold()
+                
+                Spacer()
                 
                 LazyVGrid(columns: [GridItem(), GridItem()]) {
                     ForEach(teamname, id: \.self) { team in
                         RadioButton(team: team, isSelected: team == self.team) {
                             self.team = team
-                                        }
-                                    }
-                                }
-                                .padding()
+                        }
+                    }
+                }
+                .padding()
                 
                 Spacer()
                 
@@ -61,11 +63,11 @@ struct JoinPage: View {
                             let query = TeamVM()
                             print(team)
                             if query.insertDB(team: team ?? "") {
-                                            showContentView = true
-                                        } else {
-                                            // 실패한 경우에 대한 처리
-                                            print("팀 추가 error")
-                                        }
+                                showContentView = true
+                            } else {
+                                // 실패한 경우에 대한 처리
+                                print("팀 추가 error")
+                            }
                         },
                         secondaryButton: .cancel(Text("아니오"))
                     )
@@ -87,7 +89,7 @@ struct RadioButton: View {
                 .resizable()
                 .scaledToFit()
                 .frame(width: 50, height: 50)
-                .padding(.bottom, 10)
+            //.padding(.bottom, 10)
             
             Button(action: action) {
                 HStack {

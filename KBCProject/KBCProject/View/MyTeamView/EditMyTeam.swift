@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct EditMyTeam: View {
+    @Environment(\.dismiss) var dismiss
     
-    var teamname = ["LG","두산","키움","SSG","삼성","한화","롯데","NC","기아","KT"]
+    var teamname = ["LG","두산","키움","SSG","삼성","한화","롯데","NC","KIA","KT"]
     @State var team: String? = nil
     @State var showErrorAlert = false
     @State var showConfirmaAlert = false
@@ -41,19 +42,17 @@ struct EditMyTeam: View {
                 sheetValue = true
             })
             .alert("경고", isPresented: $showErrorAlert, actions: {
-                Button("확인", action: {
-                    
-                })
+                Button("확인", action: {})
+            }, message: {
+                Text("팀을 선택해 주세요!")
             })
             .confirmationDialog("확인", isPresented: $sheetValue, titleVisibility: .visible, actions: {
                 Button("수정", role: .none, action: {
-                    
+                    let update = TeamVM()
+                    _ = update.updateDB(team: self.team!, id: 1)
+                    dismiss.callAsFunction()
                 })
-                
-                Button("취소", role: .cancel, action: {
-                    
-                })
-                
+                Button("취소", role: .cancel, action: {})
             }, message: {
                 Text("Message 입력")
             })
@@ -87,6 +86,7 @@ struct RadioButtonView: View {
             })
         } // VStack
         .frame(width: 100)
+//        .border(Color.gray)
     }
 }
 
