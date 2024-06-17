@@ -53,7 +53,7 @@ struct EditMyTeam: View {
                 })
                 Button("취소", role: .cancel, action: {})
             }, message: {
-                Text("Message 입력")
+                Text("팀을 수정하시겠습니까?")
             })
             Spacer()
         }) // VStack
