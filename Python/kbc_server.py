@@ -30,10 +30,11 @@ app.config['JSON_AS_ASCII'] = False # utf8
 # KT
 # 키움
 
-# ---- 차트 -----
+# ----- 차트 -----
 @app.route('/monthRank')
 def teamRanking() :
     # 사용자가 선택하는 값
+    
     select_year = request.args.get('year')
     select_month = request.args.get('month')
 
@@ -75,6 +76,7 @@ def dayRanking() :
     # return
     return json.dumps(result, ensure_ascii=False).encode('utf-8')
 
+# ----- 크롤링 -----
 def crawling_kbo_dayRanking() :
     from bs4 import BeautifulSoup
     import urllib.request as req
@@ -117,6 +119,7 @@ def crawling_kbo_dayRanking() :
     
     pd.DataFrame(result).to_csv('../Python/Data/rank/day_rank.csv', index=None)
 
+# ----- 경기 일정 -----
 @app.route('/searchmatch')
 def searchteam():
     myteam = request.args.get('myteam')
@@ -171,6 +174,7 @@ def searchteam():
 
     return json.dumps([response], ensure_ascii=False).encode('utf-8')
 
+# ----- 팀 응원 게시판 -----
 @app.route('/cheerContent')
 def cheerSelectMySQL() :
     team = request.args.get('team')
@@ -243,15 +247,16 @@ def cheerInsertMySQL() :
         conn.close()
         return json.dumps({"result" : "error"}, ensure_ascii=False).encode('utf-8')
     
-# ---- 예측 ----
+# ----- 예측 -----
 @app.route("/predict")
 def predictCrowd():
     # 데이터 받기
     month=int(request.args.get("month"))
     day=int(request.args.get("day"))
+    myTeam = request.args.get("myTeam")
     # rank=int(request.args.get("순위"))
     away=request.args.get("원정팀")
-    myTeam = request.args.get("myTeam")
+    
     print("myTeam :", myTeam)
 
     date = datetime.date(2024, month, day)
@@ -298,7 +303,7 @@ def predictCrowd():
     else:
         hlRank = None
 
-    # 예측 모델 실행
+
     clf = joblib.load(f"./Data/predict_model/svm_{myTeam}.h5")
     thiss = np.array(
         [
@@ -306,8 +311,9 @@ def predictCrowd():
         ]
     )
     pre = clf.predict(thiss)
-    print(pre)
     return jsonify([{'result':pre[0]}])
 
 if __name__ == '__main__' :
     app.run(host='127.0.0.1', port=5000, debug=True)
+
+
